@@ -1,5 +1,5 @@
-import { count } from 'console';
 import fs from 'fs';
+import { Worker, isMainThread, parentPort } from 'worker_threads';
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
 
 function loadWordList(filePath) {
@@ -278,11 +278,10 @@ function getBestStartingWordleWordByPopScore(wordList, greenScoreWeight, popScor
 
 function saveBestStartingWordleWordsByPopScoreToTable(wordList, greenScoreWeight, popScoreWeight) {
     let { popScoresNoRepeatingLetters } = getBestStartingWordleWordByPopScore(wordList, greenScoreWeight, popScoreWeight);
-
-    let tableOut = `Weights used: Green Score Weight = ${greenScoreWeight}, Pop Score Weight = ${popScoreWeight}\n`;
+    let tableOut = `Weights used: Green Score Weight = ${greenScoreWeight.toFixed(2)}, Pop Score Weight = ${popScoreWeight.toFixed(2)}\n`;
     tableOut += "| Rank | Word | Score | Pop Score | Green Score |\n";
     tableOut += "|------|------|-------|-----------|-------------|\n";
-
+    popScoresNoRepeatingLetters = popScoresNoRepeatingLetters.splice(0, 15); // Limit to top 100 for table output
     popScoresNoRepeatingLetters.forEach((scoreObj, idx) => {
         tableOut += `| ${idx + 1} | ${scoreObj.word} | ${scoreObj.score.toFixed(2)} | ${scoreObj.popScore.toFixed(2)} | ${scoreObj.greenScore.toFixed(2)} |\n`;
     });
@@ -292,4 +291,215 @@ function saveBestStartingWordleWordsByPopScoreToTable(wordList, greenScoreWeight
     return tableOut;
 }
 
-saveBestStartingWordleWordsByPopScoreToTable(wordList, .1, .9);
+let depth5Checks = 0;
+
+function recursiveWordleGameSimulate(wordList, startingWord, targetWord, history, depth) {
+    let stepsToSolve = {1:0, 2:0, 3:0, 4:0, 5:0};
+    if (depth === 0) {
+        return stepsToSolve;
+    }
+    let guessedLetters = new Set();
+    
+    // Extract correct letters (greens) and track yellow letters
+    let correctLetters = Array(5).fill("");
+    let requiredLetters = new Set(); // For yellow letters
+    
+    for (let pastGuess of history) {
+        for (let i = 0; i < pastGuess.length; i++) {
+            if (pastGuess[i] === targetWord[i]) {
+                correctLetters[i] = pastGuess[i];
+            } else if (targetWord.includes(pastGuess[i])) {
+                requiredLetters.add(pastGuess[i]);
+            }
+        }
+    }
+    // Collect letters that are known not to be in the target word
+    let guessedButNotInTarget = new Set();
+    for (let pastGuess of history) {
+        for (let i = 0; i < pastGuess.length; i++) {
+            let guessedLetter = pastGuess[i];
+            if (!targetWord.includes(guessedLetter)) {
+                guessedButNotInTarget.add(guessedLetter);
+            }
+        }
+    }
+
+    // Filter possible words based on:
+    // 1. Correct letters in specific positions
+    // 2. Required letters that must be present elsewhere
+    let possibleWords = [startingWord];
+    if(startingWord == ""){
+        possibleWords = wordList.filter(word => {
+            // Check for correct letters (greens)
+            for (let i = 0; i < word.length; i++) {
+                if (correctLetters[i] && word[i] !== correctLetters[i]) {
+                    return false;
+                }
+            }
+    
+            // Check if the candidate word contains any letter that is known not to be in the target word
+            for (let letter of guessedButNotInTarget) {
+                if (word.includes(letter)) {
+                    return false;
+                }
+            }
+    
+            // Check for required letters (yellows)
+            let letterCount = {};
+            for (let letter of targetWord) {
+                letterCount[letter] = (letterCount[letter] || 0) + 1;
+            }
+    
+            // Ensure word contains all required letters without exceeding their count
+            for (let letter of requiredLetters) {
+                if (!word.includes(letter)) {
+                    return false;
+                }
+                
+                // Check that we don't have more of a letter than exists in the target word
+                let wordLetterCount = word.split('').filter(l => l === letter).length;
+                if (wordLetterCount > letterCount[letter]) {
+                    return false;
+                }
+            }
+    
+            return true;
+        });
+        
+    }
+
+    possibleWords.forEach(word => {
+        if (word === targetWord) {
+            // Found the solution at this step
+            let steps = history.length + 1;
+            if (steps >= 1 && steps <= 5) {
+                stepsToSolve[steps]++;
+            }
+        } else if (history.length < 4) {
+            // Continue recursively with this guess added to history
+            let nextHistory = [...history, word];
+            let result = recursiveWordleGameSimulate(wordList, "", targetWord, nextHistory, depth - 1);
+            // Accumulate results
+            for (let k in result) {
+                stepsToSolve[k] += result[k];
+            }
+        }
+    })
+    return stepsToSolve;
+}
+
+
+
+// Keep the original function:
+function simulateEveryWordleGameWithAStartWord(wordList, startingWord) {
+    let allResults = {};
+    let total = { steps: {1:0, 2:0, 3:0, 4:0, 5:0}, average: 0, totalGames: 0 };
+    let checkedWordsCount = 0;
+    for (let targetWord of wordList) {
+        let result = recursiveWordleGameSimulate(wordList, startingWord, targetWord, [], 5);
+        allResults[targetWord] = result;
+        console.clear();
+        checkedWordsCount++;
+        console.log(`Checked ${checkedWordsCount} out of ${wordList.length} words...`);
+    }
+    // Calculate total results
+    for (let word in allResults) {
+        let result = allResults[word];
+        total.totalGames += Object.values(result).reduce((a, b) => a + b, 0);
+        for (let steps in result) {
+            total.steps[steps] += result[steps];
+        }
+    }
+    allResults["total_result"] = total;
+    saveAnalysisResults('./analysis/wordle_game_simulation_results.json', allResults);
+    return allResults;
+}
+//simulateEveryWordleGameWithAStartWord(wordList, "stare");
+
+// New function that uses multithreading, progress, and ETA:
+function simulateEveryWordleGameWithAStartWordMultithreaded(wordList, startingWord, numThreads = 4) {
+    const totalWords = wordList.length;
+    const allResults = {};
+    let checkedWordsCount = 0;
+    let total_result = { steps: {1:0, 2:0, 3:0, 4:0, 5:0}, average: 0, totalGames: 0, startingWord: startingWord };
+    const startTime = Date.now();
+
+    // Split wordList into chunks:
+    const chunkSize = Math.ceil(totalWords / numThreads);
+    const chunks = [];
+    for (let i = 0; i < totalWords; i += chunkSize) {
+        chunks.push(wordList.slice(i, i + chunkSize));
+    }
+
+    
+    return new Promise((resolve, reject) => {
+        let finishedWorkers = 0;
+        for (let i = 0; i < chunks.length; i++) {
+            try {
+                const worker = new Worker('./analysis/worker.js', { workerData: null });
+
+                worker.on('message', (msg) => {
+                    // If a single word finished:
+                    if (msg.finishedOne) {
+                        allResults[msg.finishedOne] = msg.data;
+                        checkedWordsCount++;
+                        // Update totals incrementally
+                        let stepResults = msg.data;
+                        total_result.totalGames += Object.values(stepResults).reduce((a, b) => a + b, 0);
+                        for (let steps in stepResults) {
+                            total_result.steps[steps] += stepResults[steps];
+                        }
+                        // Persist partial progress
+                        saveAnalysisResults(`./analysis/sims/wordle_game_simulation_results_starting_word_${startingWord}.json`, { ...allResults, total_result: total_result });
+                        // Show progress and ETA
+                        const elapsed = (Date.now() - startTime) / 1000;
+                        const rate = checkedWordsCount / elapsed;
+                        const remaining = totalWords - checkedWordsCount;
+                        const eta = remaining / (rate || 1);
+                        const progress = ((checkedWordsCount / totalWords) * 100).toFixed(2);
+                        console.clear();
+                        console.log(`Progress: ${progress}% (${checkedWordsCount}/${totalWords}) | ETA: ${eta.toFixed(1)}s`);
+                    }
+                    // If the worker is done with its chunk:
+                    if (msg.done) {
+                        finishedWorkers++;
+                        if (finishedWorkers === chunks.length) {
+                            allResults.total_result = total_result;
+                            // Final save
+                            saveAnalysisResults(`./analysis/sims/wordle_game_simulation_results_starting_word_${startingWord}.json`, allResults);
+                            resolve(allResults);
+                        }
+                    }
+                });
+
+                worker.on('error', (err) => {
+                    console.error(`Worker error: ${err.message}`);
+                    reject(err);
+                });
+
+                worker.on('exit', (code) => {
+                    if (code !== 0) {
+                        console.error(`Worker stopped with exit code ${code}`);
+                        reject(new Error(`Worker stopped with exit code ${code}`));
+                    }
+                });
+
+                worker.postMessage({
+                    chunk: chunks[i],
+                    globalWordList: wordList,
+                    startingWord: startingWord
+                });
+            } catch (err) {
+                console.error(`Failed to create worker: ${err.message}`);
+                reject(err);
+            }
+        }
+    });
+}
+
+// Example usage:
+simulateEveryWordleGameWithAStartWordMultithreaded(wordList, "stare", 26)
+    .then((results) => {
+        console.log("Multithreaded simulation complete!");
+    })
+    .catch((err) => console.error(err));
