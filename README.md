@@ -3,11 +3,11 @@
 *I made this similar to a blog post*
 
 The best starting word for Wordle is **AEROS**.<br>
-*\*for getting green letters off the bat*
+
 
 ![Pares](./analysis/Aeros.png)
 
-# Why is Pares the best starting word?
+# Why is Aeros the best starting word?
 
 ## Most common letter:
 This started by asking what is the most common letter in Wordle. So I extracted the [word list from Wordle](./words.json), then created a [Node.js script](./analysis/index.js) with a function `getMostCommonLetters(wordList)`. This left me with two files: [`most_common_letters.json`](./analysis/most_common_letters.json) and [`sorted_most_common_letters.json`](./analysis/sorted_most_common_letters.json). I simplified the results into a table at [`sorted_most_common_letters_table.txt`](./analysis/sorted_most_common_letters_table.txt).
