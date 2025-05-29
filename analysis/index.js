@@ -145,7 +145,7 @@ function saveMostCommonLettersPerPositionToTable(wordList) {
 
 
 
-function getBestStartingWordleWord(wordList){
+function getBestStartingWordleWordByGreenScore(wordList){
     let { letterDicts } = getMostCommonLettersPerPosition(wordList);
     let wordScores = [];
 
@@ -178,7 +178,7 @@ function getBestStartingWordleWord(wordList){
         score.rank = index + 1;
     });
 
-    saveAnalysisResults('./analysis/best_starting_wordle_words.json', wordScores);
+    saveAnalysisResults('./analysis/best_starting_wordle_words_from_position_chances.json', wordScores);
 
     // Filtering out words that repeat letters
     let noRepeatingLettersWordScores = wordScores.filter((score) => {
@@ -190,7 +190,7 @@ function getBestStartingWordleWord(wordList){
         score.rank = index + 1;
     });
 
-    saveAnalysisResults('./analysis/best_starting_wordle_words_no_repeating_letters.json', noRepeatingLettersWordScores);
+    saveAnalysisResults('./analysis/best_starting_wordle_words_from_position_chances_no_repeating_letters.json', noRepeatingLettersWordScores);
     
     return {
         wordScores: wordScores,
@@ -198,8 +198,8 @@ function getBestStartingWordleWord(wordList){
     };
 }
 
-function saveBestStartingWordleWordsToTable(wordList) {
-    let { noRepeatingLettersWordScores } = getBestStartingWordleWord(wordList);
+function saveBestStartingWordleWordsByGreenScoreToTable(wordList) {
+    let { noRepeatingLettersWordScores } = getBestStartingWordleWordByGreenScore(wordList);
 
     let tableOut = "Rank | Word | Score\n";
     tableOut += "-------------------------\n";6
@@ -208,11 +208,88 @@ function saveBestStartingWordleWordsToTable(wordList) {
         tableOut += `| ${scoreObj.rank} | ${scoreObj.word} | ${scoreObj.score.toFixed(2)} |\n`;
     }
 
-    fs.writeFileSync('./analysis/best_starting_wordle_words_table_no_repeating_letters.txt', tableOut);
+    fs.writeFileSync('./analysis/best_starting_wordle_words_tables_from_position_chances_no_repeating_letters.txt', tableOut);
 
     return tableOut;
 }
 
-//Lol thanks for reading the code! I hope you found this little thing as interesting as I did.
-//Xhram - 5/28/2025
+function getBestStartingWordleWordByPopScore(wordList, greenScoreWeight, popScoreWeight) {
+    let {wordScores} = getBestStartingWordleWordByGreenScore(wordList);
+    let popScores = wordScores.map(score => {
+        return {
+            word: score.word,
+            score: 0,
+            greenScore: score.score,
+            popScore: 0
+        };
+    });
+    let greenScoreLetterDict = getMostCommonLetters(wordList).letterDict;
 
+
+
+    for(let score of popScores) {
+        for(let letter of score.word) {
+            score.popScore += greenScoreLetterDict[letter].persentage;
+        }
+        
+    }
+
+    popScores.forEach(score => {
+        score.score = (score.popScore * popScoreWeight) + (score.greenScore * greenScoreWeight);
+    });
+
+
+    popScores.sort((a, b) => b.score - a.score);
+
+    saveAnalysisResults(
+        './analysis/best_starting_wordle_words_by_pop_score.json',
+        {
+            greenScoreWeight: greenScoreWeight,
+            popScoreWeight: popScoreWeight,
+            popScores: popScores
+        }
+    );
+
+    let popScoresNoRepeatingLetters = popScores.filter((score) => {
+        let letterSet = new Set(score.word);
+        return letterSet.size === score.word.length;
+    });
+
+    saveAnalysisResults(
+        './analysis/best_starting_wordle_words_by_pop_score_no_repeating_letters.json',
+        {
+            greenScoreWeight: greenScoreWeight,
+            popScoreWeight: popScoreWeight,
+            popScoresNoRepeatingLetters: popScoresNoRepeatingLetters
+        }
+    );
+
+
+    return {
+        greenScoreWeight: greenScoreWeight,
+        popScoreWeight: popScoreWeight,
+        popScores: popScores,
+        popScoresNoRepeatingLetters: popScoresNoRepeatingLetters
+    };
+}
+
+
+
+
+function saveBestStartingWordleWordsByPopScoreToTable(wordList, greenScoreWeight, popScoreWeight) {
+    let { popScoresNoRepeatingLetters } = getBestStartingWordleWordByPopScore(wordList, greenScoreWeight, popScoreWeight);
+
+    let tableOut = `Weights used: Green Score Weight = ${greenScoreWeight}, Pop Score Weight = ${popScoreWeight}\n`;
+    tableOut += "| Rank | Word | Score | Pop Score | Green Score |\n";
+    tableOut += "|------|------|-------|-----------|-------------|\n";
+
+    popScoresNoRepeatingLetters.forEach((scoreObj, idx) => {
+        tableOut += `| ${idx + 1} | ${scoreObj.word} | ${scoreObj.score.toFixed(2)} | ${scoreObj.popScore.toFixed(2)} | ${scoreObj.greenScore.toFixed(2)} |\n`;
+    });
+
+    fs.writeFileSync('./analysis/best_starting_wordle_words_by_pop_score_table.txt', tableOut);
+
+    return tableOut;
+}
+
+saveBestStartingWordleWordsByPopScoreToTable(wordList, 0.1, 0.9);

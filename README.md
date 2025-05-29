@@ -1,19 +1,16 @@
 # The Best Wordle Starting Word
-*By:Xhram* <br>
-*I made this simular to a blog post*
+*By: Xhram* <br>
+*I made this similar to a blog post*
 
+The best starting word for Wordle is **AEROS**.<br>
+*\*for getting green letters off the bat*
 
-The best starting word for Wordle is **PARES**.<br>
-*\*for getting green letters of the bat*
+![Pares](./analysis/Aeros.png)
 
-![Pares](./analysis/Pares.png)
+# Why is Pares the best starting word?
 
-## Why is Pares the best starting word?
-
-### Most common letter:
-This started by asking what is the most common letter in wordle. So I ripped the [wordlist from wordle](./words.json) then I simply created a [node js script](./analysis/index.js) and made a function `getMostCommonLetters(wordList)` leaving me with to files [`most_common_letters.json`](./analysis/most_common_letters.json) and [`sorted_most_common_letters.json`](./analysis/sorted_most_common_letters.json). I simplifyed it into a table at [`sorted_most_common_letters_table.txt`](./analysis/sorted_most_common_letters_table.txt).
-
-
+## Most common letter:
+This started by asking what is the most common letter in Wordle. So I extracted the [word list from Wordle](./words.json), then created a [Node.js script](./analysis/index.js) with a function `getMostCommonLetters(wordList)`. This left me with two files: [`most_common_letters.json`](./analysis/most_common_letters.json) and [`sorted_most_common_letters.json`](./analysis/sorted_most_common_letters.json). I simplified the results into a table at [`sorted_most_common_letters_table.txt`](./analysis/sorted_most_common_letters_table.txt).
 
 | Letter | Percentage | Count |
 | :----: | ---------- | ----- |
@@ -45,10 +42,8 @@ j | 0.46% | 342
 x | 0.44% | 326
 q | 0.20% | 145
 
-
-### Most common letter per position
-The next step was what is the most common letter at any single position in a given word. Then you get the idea I made a function `getMostCommonLettersPerPosition(wordList)`. Running the aforementioned function produces to files [`sorted_most_common_letters_per_position.json`](./analysis/sorted_most_common_letters_per_position.json) and [`most_common_letters_per_position.json`](./analysis/most_common_letters_per_position.json). Then again I made another [table](./analysis/sorted_most_common_letters_per_position_table.txt).
-
+## Most common letter per position
+The next step was to find the most common letter at each position in a five-letter word. I wrote a function `getMostCommonLettersPerPosition(wordList)`. Running this function produced two files: [`sorted_most_common_letters_per_position.json`](./analysis/sorted_most_common_letters_per_position.json) and [`most_common_letters_per_position.json`](./analysis/most_common_letters_per_position.json). I also created a [table](./analysis/sorted_most_common_letters_per_position_table.txt) for easier viewing.
 
 | Rank | 1st Letter | 2nd Letter | 3rd Letter | 4th Letter | 5th Letter |
 | :--: | :--: | :--: | :--: | :--: | :--: |
@@ -80,13 +75,12 @@ The next step was what is the most common letter at any single position in a giv
 | 25 | q (0.7%) | q (0.1%) | j (0.4%) | x (0.1%) | v (0.0%) |
 | 26 | x (0.1%) | j (0.1%) | q (0.1%) | q (0.0%) | j (0.0%) |
 
+## Best Words (I Thought)
+I analyzed every word by summing the percentage likelihood of each letter appearing in its specific position, resulting in a score for each word. This process initially identified `sanes` as the top word, but since repeated letters are less useful for early guesses, I filtered out words with duplicate letters. This was implemented in the `getBestStartingWordleWord(wordList)` function, which produced the files [`best_starting_wordle_words_from_position_chances_no_repeating_letters.json`](./analysis/best_starting_wordle_words_from_position_chances_no_repeating_letters.json) and [`best_starting_wordle_words_from_position_chances.json`](./analysis/best_starting_wordle_words_from_position_chances.json). The table below shows the results.
 
-### Best Words
-Lastly I just went through every word and took the percentage that a letter at a give position in a word is and added it together to give it a score. Doing so gives you `sanes` but as you might know double letters aren't as helpful as using a guess on a new letter. Therefore I filtered any words using a letter more then once. Done in this function `getBestStartingWordleWord(wordList)` in turn gives you [`best_starting_wordle_words_no_repeating_letters.json`](./analysis/best_starting_wordle_words_no_repeating_letters.json) and [`best_starting_wordle_words.json`](./analysis/best_starting_wordle_words.json). In the end here is the table I made.
+*Please note that, as previously mentioned, the Score is not truly a percentage but a summative representation of the likelihood a given letter would appear in its given spot in the word—this % can be very misleading.*
+*Also note: due to the length of this list, only the first 10 and last 5 will be in the [README.md](./README.md). Please see the [JSON file](./analysis/best_starting_wordle_words_from_position_chances_no_repeating_letters.json) ([`best_starting_wordle_words_from_position_chances_no_repeating_letters.json`](./analysis/best_starting_wordle_words_from_position_chances_no_repeating_letters.json)) or the [table file](./analysis/best_starting_wordle_words_tables_from_position_chances_no_repeating_letters.txt) ([`best_starting_wordle_words_tables_from_position_chances_no_repeating_letters.txt`](./analysis/best_starting_wordle_words_tables_from_position_chances_no_repeating_letters.txt)) for the full list.*
 
-*Please Note that as previously mentioned the Score is not truly a percentage but an summative representation of the likely hood a given letter would appear in its given spot in the word - this % can be very missleading*
-
-*Also note due to the length of this list only the first 100 and last 100 will be in the [README.md](./README.md) but please go to the [json file](./analysis/best_starting_wordle_words_no_repeating_letters.json) ([`best_starting_wordle_words_no_repeating_letters.json`](./analysis/best_starting_wordle_words_no_repeating_letters.json)) or the [table file](./analysis/best_starting_wordle_words_table_no_repeating_letters.txt) ([`best_starting_wordle_words_table_no_repeating_letters.txt`](./analysis/best_starting_wordle_words_table_no_repeating_letters.txt))*
 | Rank | Word | Score |
 | :-: | :-: | :-: |
 1 | pares | 81.02
@@ -99,194 +93,136 @@ Lastly I just went through every word and took the percentage that a letter at a
 8 | banes | 78.59
 9 | pales | 78.46
 10 | bores | 78.36
-11 | canes | 78.36
-12 | dares | 78.36
-13 | manes | 78.24
-14 | cores | 78.14
-15 | gares | 78.03
-16 | mores | 78.01
-17 | fares | 77.77
-18 | pones | 77.64
-19 | lares | 77.62
-20 | bales | 77.60
-21 | tores | 77.55
-22 | males | 77.25
-23 | ranes | 77.19
-24 | hares | 77.00
-25 | pates | 76.86
-26 | tales | 76.79
-27 | bones | 76.78
-28 | poles | 76.65
-29 | nares | 76.57
-30 | cones | 76.56
-31 | dores | 76.56
-32 | wares | 76.34
-33 | gores | 76.22
-34 | rales | 76.20
-35 | fanes | 76.18
-36 | lanes | 76.04
-37 | bates | 76.00
-38 | tones | 75.97
-39 | fores | 75.96
-40 | lores | 75.82
-41 | boles | 75.80
-42 | dales | 75.80
-43 | cates | 75.78
-44 | mates | 75.65
-45 | coles | 75.58
-46 | gales | 75.46
-47 | moles | 75.45
-48 | rones | 75.38
-49 | vares | 75.33
-50 | fales | 75.20
-51 | kaies | 75.09
-52 | paces | 75.05
-53 | potes | 75.05
-54 | toles | 74.98
-55 | pages | 74.78
-56 | wanes | 74.76
-57 | cames | 74.74
-58 | kanes | 74.72
-59 | rates | 74.60
-60 | kores | 74.50
-61 | hales | 74.43
-62 | roles | 74.40
-63 | fones | 74.38
-64 | botes | 74.20
-65 | dates | 74.20
-66 | tames | 74.14
-67 | pomes | 74.01
-68 | doles | 74.00
-69 | cades | 73.98
-70 | cotes | 73.98
-71 | moues | 73.98
-72 | gates | 73.86
-73 | maces | 73.85
-74 | motes | 73.85
-75 | paves | 73.78
-76 | wales | 73.77
-77 | vanes | 73.75
-78 | kales | 73.74
-79 | cages | 73.71
-80 | capes | 73.70
-81 | goles | 73.66
-82 | hones | 73.61
-83 | fates | 73.60
-84 | mages | 73.58
-85 | mapes | 73.57
-86 | rames | 73.56
-87 | taces | 73.38
-88 | janes | 73.35
-89 | mabes | 73.30
-90 | bakes | 73.27
-91 | dames | 73.15
-92 | tapes | 73.11
-93 | cakes | 73.05
-94 | yores | 72.99
-95 | comes | 72.93
-96 | roues | 72.92
-97 | makes | 72.92
-98 | paxes | 72.89
-99 | tabes | 72.84
-100 | hates | 72.83
-101 | ... to ... | 9265
-9266 | oxlip | 17.51
-9267 | aspic | 17.51
-9268 | abohm | 17.50
-9269 | amuck | 17.50
-9270 | glyph | 17.50
-9271 | ethal | 17.44
-9272 | kydst | 17.35
-9273 | epoch | 17.34
-9274 | ejido | 17.32
-9275 | oculi | 17.26
-9276 | aswim | 17.24
-9277 | inorb | 17.23
-9278 | thymi | 17.23
-9279 | using | 17.23
-9280 | uncap | 17.21
-9281 | octli | 17.13
-9282 | kyudo | 17.09
-9283 | tsubo | 17.08
-9284 | ampul | 17.07
-9285 | escot | 17.04
-9286 | optic | 17.03
-9287 | askoi | 16.96
-9288 | ancho | 16.91
-9289 | umbra | 16.88
-9290 | otium | 16.83
-9291 | extol | 16.79
-9292 | estro | 16.78
-9293 | opium | 16.78
-9294 | okrug | 16.71
-9295 | xylic | 16.71
-9296 | unbag | 16.70
-9297 | infra | 16.60
-9298 | oskin | 16.56
-9299 | ekdam | 16.54
-9300 | odism | 16.48
-9301 | educt | 16.45
-9302 | opgaf | 16.44
-9303 | impot | 16.42
-9304 | ephod | 16.33
-9305 | whump | 16.17
-9306 | abjud | 16.16
-9307 | indol | 16.16
-9308 | ovism | 16.14
-9309 | lymph | 16.14
-9310 | elbow | 16.06
-9311 | psych | 15.97
-9312 | odium | 15.83
-9313 | xysti | 15.82
-9314 | abmho | 15.79
-9315 | ozeki | 15.71
-9316 | incut | 15.63
-9317 | unmix | 15.60
-9318 | equip | 15.57
-9319 | adsum | 15.54
-9320 | zygon | 15.43
-9321 | ephor | 15.41
-9322 | input | 15.36
-9323 | awful | 15.35
-9324 | incur | 15.24
-9325 | nduja | 15.19
-9326 | nymph | 15.08
-9327 | osmic | 15.07
-9328 | elchi | 15.05
-9329 | ogmic | 14.94
-9330 | unjam | 14.88
-9331 | envoi | 14.84
-9332 | zymic | 14.77
-9333 | exfil | 14.70
-9334 | odeum | 14.65
-9335 | estop | 14.61
-9336 | etyma | 14.55
-9337 | inspo | 14.49
-9338 | estoc | 14.48
-9339 | ogham | 14.39
-9340 | impro | 14.35
-9341 | ichor | 14.12
-9342 | adhoc | 14.10
-9343 | endow | 14.00
-9344 | emoji | 13.99
-9345 | oshac | 13.98
-9346 | enfix | 13.83
-9347 | abysm | 13.71
-9348 | incog | 13.69
-9349 | exurb | 13.64
-9350 | unzip | 13.35
-9351 | unhip | 13.22
-9352 | octyl | 13.17
-9353 | unfix | 13.07
-9354 | indow | 12.99
-9355 | ethic | 12.97
-9356 | embog | 12.96
-9357 | unbox | 12.80
-9358 | inbox | 12.55
-9359 | embox | 12.37
-9360 | embow | 12.27
+11 | ... to ... | 9360  
 9361 | upbow | 11.76
 9362 | udyog | 10.56
 9363 | othyl | 9.54
 9364 | ethyl | 9.39
 9365 | enzym | 8.31
+
+### Why those are not the best words
+These words are very effective at finding green letters on the first guess because they use the most common letters in their most likely positions. However, this approach mainly focuses on matching letters in the exact spots, rather than helping you learn more about which letters are in the word overall. As a result, these starting words might not be as helpful for revealing yellow letters or for quickly narrowing down the list of possible answers.
+
+## New Approach
+
+After reviewing the previous method, I realized that focusing solely on the most common letters in their exact positions (the "green letter score") is not always the most effective strategy for Wordle. While this method is great for maximizing the chance of getting green letters (correct letter, correct position) on the first guess, it doesn't help as much with discovering which letters are present in the word, regardless of their position (yellow letters).
+
+To address this, I introduced a new scoring system called the "popularity score" (or "Pop Score"). Instead of only considering the likelihood of each letter appearing in a specific position, the Pop Score sums up the overall frequency percentages of all unique letters in a word, based on their general occurrence in the Wordle word list. This approach rewards words that contain the most common letters, regardless of their position, making it more likely to reveal useful information about which letters are in the target word.
+
+In summary:
+- The **Green Score** measures how likely a word is to produce green letters by matching common letters in their most frequent positions.
+- The **Pop Score** measures how likely a word is to contain the most common letters overall, regardless of their position, increasing the chance of finding yellow letters and narrowing down possible answers more efficiently.
+
+When ranking starting words, I now use the Pop Score as the primary metric. If two words have the same Pop Score, the Green Score is used as a tiebreaker. This combined approach helps select starting words that are both likely to hit common letters and provide valuable information for solving the puzzle in fewer guesses.
+
+## Mixing Green and Pop Scores
+
+After developing both the Green Score and Pop Score systems, I wanted a way to combine their strengths. To do this, I introduced a **weighted scoring system** that mixes both scores using adjustable weights. This allows you to tune how much you value matching common letters in their exact positions (Green Score) versus simply including the most common letters anywhere in the word (Pop Score).
+
+The formula is simple:
+```
+Final Score = (Green Score * Green Score Weight) + (Pop Score * Pop Score Weight)
+```
+- **Green Score Weight**: How much you care about matching letters in their most likely positions (finding green letters).
+- **Pop Score Weight**: How much you care about just hitting the most common letters, regardless of position (finding yellow letters).
+
+By adjusting these weights, you can prioritize your starting word strategy:
+- A higher Pop Score Weight (e.g., 0.9) means you want to maximize the chance of revealing which common letters are present, even if not in the right spot.
+- A higher Green Score Weight (e.g., 0.9) means you want to maximize the chance of getting green letters right away.
+
+I chose these weights based on what seemed reasonable from initial results, but they are somewhat arbitrary. I encourage others to experiment with the code and adjust the weights to find the starting word and scoring balance that works best for their own play style.
+
+The code for this approach is in the function `getBestStartingWordleWordByPopScore(wordList, greenScoreWeight, popScoreWeight)`, and the results are saved in both JSON and table formats for easy review.
+
+```
+Final Score = (Green Score * Green Score Weight) + (Pop Score * Pop Score Weight)
+```
+
+This flexible system lets you experiment and find the best starting word for your own play style!
+
+## Results and Explanation
+
+After running the analysis with the combined scoring system (using Green Score Weight = 0.1 and Pop Score Weight = 0.9), the top starting words are those that maximize the chance of revealing the most common letters, while still giving some credit to their positions. The table below shows the top 25 results from the analysis:
+
+| Rank | Word  | Score | Pop Score | Green Score |
+| :----: | :---: | :-----: | :-----: | :-----: |
+| 1 | aeros | 44.79 | 42.85 | 62.23 |
+| 2 | tares | 44.68 | 40.83 | 79.35 |
+| 3 | lares | 44.59 | 40.92 | 77.62 |
+| 4 | rales | 44.45 | 40.92 | 76.20 |
+| 5 | rates | 44.20 | 40.83 | 74.60 |
+| 6 | ranes | 44.18 | 40.52 | 77.19 |
+| 7 | nares | 44.12 | 40.52 | 76.57 |
+| 8 | toeas | 44.05 | 41.50 | 66.99 |
+| 9 | soare | 43.95 | 42.85 | 53.87 |
+| 10 | aloes | 43.91 | 41.59 | 64.79 |
+| 11 | reais | 43.90 | 41.73 | 63.37 |
+| 12 | dares | 43.40 | 39.52 | 78.36 |
+| 13 | arles | 43.38 | 40.92 | 65.50 |
+| 14 | teras | 43.31 | 40.83 | 65.64 |
+| 15 | pares | 43.31 | 39.11 | 81.02 |
+| 16 | tales | 43.29 | 39.57 | 76.79 |
+| 17 | earls | 43.28 | 40.92 | 64.45 |
+| 18 | laers | 43.19 | 40.92 | 63.64 |
+| 19 | aeons | 43.17 | 41.19 | 61.00 |
+| 20 | mares | 43.16 | 39.08 | 79.82 |
+| 21 | reals | 43.05 | 40.92 | 62.16 |
+| 22 | tears | 42.98 | 40.83 | 62.34 |
+| 23 | cares | 42.97 | 38.86 | 79.95 |
+| 24 | lanes | 42.94 | 39.26 | 76.04 |
+| 25 | earns | 42.92 | 40.52 | 64.56 |
+|----|----|----|----|----|
+| 9360 | jumpy | 15.55 | 14.16 | 28.04 |
+| 9361 | judgy | 15.18 | 13.82 | 27.43 |
+| 9362 | phynx | 14.87 | 14.32 | 19.85 |
+| 9363 | whump | 14.82 | 14.67 | 16.17 |
+| 9364 | vughy | 14.72 | 13.44 | 26.18 |
+| 9365 | jumby | 14.72 | 13.37 | 26.81 |
+
+You can view the full ranked lists in the generated JSON and table files in the `analysis` folder, such as:
+- [`best_starting_wordle_words_by_pop_score_table.txt`](./analysis/best_starting_wordle_words_by_pop_score_table.txt)
+- [`best_starting_wordle_words_by_pop_score_no_repeating_letters.json`](./analysis/best_starting_wordle_words_by_pop_score_no_repeating_letters.json)
+- [`best_starting_wordle_words_by_pop_score.json`](./analysis/best_starting_wordle_words_by_pop_score.json)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
