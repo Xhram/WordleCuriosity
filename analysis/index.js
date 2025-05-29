@@ -510,7 +510,7 @@ function simulateEveryWordleGameWithAStartWordMultithreaded(wordList, startingWo
     });
 }
 
-simulateEveryWordleGameWithAStartWordMultithreaded(wordList, "stare", 26)
+simulateEveryWordleGameWithAStartWordMultithreaded(wordList, "aeros", 26)
     .then((results) => {
         console.log("Multithreaded simulation complete!");
     })
