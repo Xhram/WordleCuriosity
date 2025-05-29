@@ -1,0 +1,6 @@
+{
+	"type": "module",
+	"dependencies": {
+		"seedrandom": "^3.0.5"
+	}
+}

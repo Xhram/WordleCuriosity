@@ -1,5 +1,7 @@
 import fs from 'fs';
 import { Worker, isMainThread, parentPort } from 'worker_threads';
+import seedrandom from 'seedrandom';
+
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
 
 function loadWordList(filePath) {
@@ -415,7 +417,16 @@ function simulateEveryWordleGameWithAStartWord(wordList, startingWord) {
     return allResults;
 }
 //simulateEveryWordleGameWithAStartWord(wordList, "stare");
-
+function randomWordListShuffle(wordList, seed) {
+    let rng = seedrandom(seed);
+    let shuffledList = JSON.parse(JSON.stringify(wordList));
+    // Fisher-Yates shuffle
+    for (let i = shuffledList.length - 1; i > 0; i--) {
+        const j = Math.floor(rng() * (i + 1));
+        [shuffledList[i], shuffledList[j]] = [shuffledList[j], shuffledList[i]];
+    }
+    return shuffledList;
+}
 // New function that uses multithreading, progress, and ETA:
 function simulateEveryWordleGameWithAStartWordMultithreaded(wordList, startingWord, numThreads = 4) {
     const totalWords = wordList.length;
@@ -424,11 +435,13 @@ function simulateEveryWordleGameWithAStartWordMultithreaded(wordList, startingWo
     let total_result = { steps: {1:0, 2:0, 3:0, 4:0, 5:0}, average: 0, totalGames: 0, startingWord: startingWord };
     const startTime = Date.now();
 
+    // Shuffle the wordList to ensure randomness in processing
+    let shuffledList = randomWordListShuffle(wordList, 7);
     // Split wordList into chunks:
     const chunkSize = Math.ceil(totalWords / numThreads);
     const chunks = [];
     for (let i = 0; i < totalWords; i += chunkSize) {
-        chunks.push(wordList.slice(i, i + chunkSize));
+        chunks.push(shuffledList.slice(i, i + chunkSize));
     }
 
     
@@ -497,7 +510,6 @@ function simulateEveryWordleGameWithAStartWordMultithreaded(wordList, startingWo
     });
 }
 
-// Example usage:
 simulateEveryWordleGameWithAStartWordMultithreaded(wordList, "stare", 26)
     .then((results) => {
         console.log("Multithreaded simulation complete!");
