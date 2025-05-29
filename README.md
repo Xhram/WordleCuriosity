@@ -142,7 +142,7 @@ This flexible system lets you experiment and find the best starting word for you
 
 ## Results and Explanation
 
-After running the analysis with the combined scoring system (using Green Score Weight = 0.1 and Pop Score Weight = 0.9), the top starting words are those that maximize the chance of revealing the most common letters, while still giving some credit to their positions. The table below shows the top 25 results from the analysis:
+The results below use a Green Score Weight of 0.1 and a Pop Score Weight of 0.9, which I selected based on what seemed reasonable from initial testing. These weights are somewhat arbitrary, and you may get different results by adjusting them. I encourage you to experiment with the code and try different weight combinations to find the starting word and scoring balance that best fits your own play style. The table shows the top 25 and last 5 starting words from this analysis:
 
 | Rank | Word  | Score | Pop Score | Green Score |
 | :----: | :---: | :-----: | :-----: | :-----: |
