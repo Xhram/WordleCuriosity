@@ -1,0 +1,552 @@
+[
+    {
+        "a": {
+            "count": 868,
+            "persentage": 5.84315045439246
+        },
+        "b": {
+            "count": 1003,
+            "persentage": 6.751935375294514
+        },
+        "c": {
+            "count": 970,
+            "persentage": 6.529787950185123
+        },
+        "d": {
+            "count": 735,
+            "persentage": 4.947829013800067
+        },
+        "e": {
+            "count": 330,
+            "persentage": 2.221474251093908
+        },
+        "f": {
+            "count": 646,
+            "persentage": 4.348704140020195
+        },
+        "g": {
+            "count": 685,
+            "persentage": 4.611242006058566
+        },
+        "h": {
+            "count": 532,
+            "persentage": 3.581285762369572
+        },
+        "i": {
+            "count": 180,
+            "persentage": 1.2117132278694043
+        },
+        "j": {
+            "count": 225,
+            "persentage": 1.5146415348367555
+        },
+        "k": {
+            "count": 429,
+            "persentage": 2.88791652642208
+        },
+        "l": {
+            "count": 625,
+            "persentage": 4.207337596768765
+        },
+        "m": {
+            "count": 951,
+            "persentage": 6.401884887243352
+        },
+        "n": {
+            "count": 468,
+            "persentage": 3.1504543924604507
+        },
+        "o": {
+            "count": 352,
+            "persentage": 2.3695725345001684
+        },
+        "p": {
+            "count": 1130,
+            "persentage": 7.606866374957927
+        },
+        "q": {
+            "count": 103,
+            "persentage": 0.6933692359474924
+        },
+        "r": {
+            "count": 795,
+            "persentage": 5.351733423089869
+        },
+        "s": {
+            "count": 1666,
+            "persentage": 11.215079097946818
+        },
+        "t": {
+            "count": 882,
+            "persentage": 5.93739481656008
+        },
+        "u": {
+            "count": 217,
+            "persentage": 1.460787613598115
+        },
+        "v": {
+            "count": 284,
+            "persentage": 1.9118142039717265
+        },
+        "w": {
+            "count": 434,
+            "persentage": 2.92157522719623
+        },
+        "x": {
+            "count": 18,
+            "persentage": 0.12117132278694043
+        },
+        "y": {
+            "count": 205,
+            "persentage": 1.380006731740155
+        },
+        "z": {
+            "count": 122,
+            "persentage": 0.8212722988892628
+        },
+        "total": {
+            "count": 14855,
+            "persentage": 100
+        }
+    },
+    {
+        "a": {
+            "count": 2682,
+            "persentage": 18.054527095254123
+        },
+        "b": {
+            "count": 108,
+            "persentage": 0.7270279367216426
+        },
+        "c": {
+            "count": 207,
+            "persentage": 1.3934702120498148
+        },
+        "d": {
+            "count": 108,
+            "persentage": 0.7270279367216426
+        },
+        "e": {
+            "count": 1857,
+            "persentage": 12.500841467519352
+        },
+        "f": {
+            "count": 37,
+            "persentage": 0.24907438572871085
+        },
+        "g": {
+            "count": 94,
+            "persentage": 0.6327835745540222
+        },
+        "h": {
+            "count": 604,
+            "persentage": 4.065971053517335
+        },
+        "i": {
+            "count": 1598,
+            "persentage": 10.757320767418378
+        },
+        "j": {
+            "count": 13,
+            "persentage": 0.08751262201279031
+        },
+        "k": {
+            "count": 114,
+            "persentage": 0.7674183776506227
+        },
+        "l": {
+            "count": 774,
+            "persentage": 5.210366879838438
+        },
+        "m": {
+            "count": 211,
+            "persentage": 1.4203971726691351
+        },
+        "n": {
+            "count": 388,
+            "persentage": 2.611915180074049
+        },
+        "o": {
+            "count": 2414,
+            "persentage": 16.250420733759675
+        },
+        "p": {
+            "count": 249,
+            "persentage": 1.6762032985526758
+        },
+        "q": {
+            "count": 16,
+            "persentage": 0.10770784247728037
+        },
+        "r": {
+            "count": 1019,
+            "persentage": 6.859643217771794
+        },
+        "s": {
+            "count": 113,
+            "persentage": 0.7606866374957927
+        },
+        "t": {
+            "count": 256,
+            "persentage": 1.7233254796364859
+        },
+        "u": {
+            "count": 1368,
+            "persentage": 9.209020531807473
+        },
+        "v": {
+            "count": 57,
+            "persentage": 0.38370918882531135
+        },
+        "w": {
+            "count": 177,
+            "persentage": 1.191518007404914
+        },
+        "x": {
+            "count": 63,
+            "persentage": 0.4240996297542915
+        },
+        "y": {
+            "count": 298,
+            "persentage": 2.006058566139347
+        },
+        "z": {
+            "count": 30,
+            "persentage": 0.2019522046449007
+        },
+        "total": {
+            "count": 14855,
+            "persentage": 100
+        }
+    },
+    {
+        "a": {
+            "count": 1374,
+            "persentage": 9.249410972736452
+        },
+        "b": {
+            "count": 386,
+            "persentage": 2.598451699764389
+        },
+        "c": {
+            "count": 467,
+            "persentage": 3.143722652305621
+        },
+        "d": {
+            "count": 467,
+            "persentage": 3.143722652305621
+        },
+        "e": {
+            "count": 998,
+            "persentage": 6.718276674520364
+        },
+        "f": {
+            "count": 204,
+            "persentage": 1.3732749915853248
+        },
+        "g": {
+            "count": 427,
+            "persentage": 2.87445304611242
+        },
+        "h": {
+            "count": 146,
+            "persentage": 0.9828340626051835
+        },
+        "i": {
+            "count": 1173,
+            "persentage": 7.896331201615618
+        },
+        "j": {
+            "count": 59,
+            "persentage": 0.39717266913497135
+        },
+        "k": {
+            "count": 329,
+            "persentage": 2.2147425109390775
+        },
+        "l": {
+            "count": 973,
+            "persentage": 6.549983170649614
+        },
+        "m": {
+            "count": 580,
+            "persentage": 3.9044092898014138
+        },
+        "n": {
+            "count": 1119,
+            "persentage": 7.5328172332547965
+        },
+        "o": {
+            "count": 1113,
+            "persentage": 7.4924267923258165
+        },
+        "p": {
+            "count": 426,
+            "persentage": 2.86772130595759
+        },
+        "q": {
+            "count": 18,
+            "persentage": 0.12117132278694043
+        },
+        "r": {
+            "count": 1354,
+            "persentage": 9.114776169639851
+        },
+        "s": {
+            "count": 613,
+            "persentage": 4.126556714910804
+        },
+        "t": {
+            "count": 735,
+            "persentage": 4.947829013800067
+        },
+        "u": {
+            "count": 754,
+            "persentage": 5.075732076741838
+        },
+        "v": {
+            "count": 278,
+            "persentage": 1.8714237630427466
+        },
+        "w": {
+            "count": 305,
+            "persentage": 2.0531807472231574
+        },
+        "x": {
+            "count": 146,
+            "persentage": 0.9828340626051835
+        },
+        "y": {
+            "count": 246,
+            "persentage": 1.6560080780881856
+        },
+        "z": {
+            "count": 165,
+            "persentage": 1.110737125546954
+        },
+        "total": {
+            "count": 14855,
+            "persentage": 100
+        }
+    },
+    {
+        "a": {
+            "count": 1319,
+            "persentage": 8.8791652642208
+        },
+        "b": {
+            "count": 282,
+            "persentage": 1.8983507236620667
+        },
+        "c": {
+            "count": 456,
+            "persentage": 3.069673510602491
+        },
+        "d": {
+            "count": 551,
+            "persentage": 3.709188825311343
+        },
+        "e": {
+            "count": 2531,
+            "persentage": 17.03803433187479
+        },
+        "f": {
+            "count": 258,
+            "persentage": 1.7367889599461461
+        },
+        "g": {
+            "count": 487,
+            "persentage": 3.2783574554022215
+        },
+        "h": {
+            "count": 283,
+            "persentage": 1.9050824638168966
+        },
+        "i": {
+            "count": 1048,
+            "persentage": 7.054863682261865
+        },
+        "j": {
+            "count": 42,
+            "persentage": 0.282733086502861
+        },
+        "k": {
+            "count": 571,
+            "persentage": 3.8438236284079434
+        },
+        "l": {
+            "count": 869,
+            "persentage": 5.849882194547291
+        },
+        "m": {
+            "count": 445,
+            "persentage": 2.9956243688993607
+        },
+        "n": {
+            "count": 885,
+            "persentage": 5.957590037024571
+        },
+        "o": {
+            "count": 827,
+            "persentage": 5.567149108044429
+        },
+        "p": {
+            "count": 466,
+            "persentage": 3.136990912150791
+        },
+        "q": {
+            "count": 3,
+            "persentage": 0.02019522046449007
+        },
+        "r": {
+            "count": 809,
+            "persentage": 5.445977785257489
+        },
+        "s": {
+            "count": 588,
+            "persentage": 3.9582632110400535
+        },
+        "t": {
+            "count": 1039,
+            "persentage": 6.994278020868395
+        },
+        "u": {
+            "count": 492,
+            "persentage": 3.3120161561763712
+        },
+        "v": {
+            "count": 177,
+            "persentage": 1.191518007404914
+        },
+        "w": {
+            "count": 143,
+            "persentage": 0.9626388421406933
+        },
+        "x": {
+            "count": 15,
+            "persentage": 0.10097610232245036
+        },
+        "y": {
+            "count": 124,
+            "persentage": 0.834735779198923
+        },
+        "z": {
+            "count": 145,
+            "persentage": 0.9761023224503534
+        },
+        "total": {
+            "count": 14855,
+            "persentage": 100
+        }
+    },
+    {
+        "a": {
+            "count": 885,
+            "persentage": 5.957590037024571
+        },
+        "b": {
+            "count": 70,
+            "persentage": 0.47122181083810166
+        },
+        "c": {
+            "count": 146,
+            "persentage": 0.9828340626051835
+        },
+        "d": {
+            "count": 874,
+            "persentage": 5.883540895321441
+        },
+        "e": {
+            "count": 1739,
+            "persentage": 11.70649612924941
+        },
+        "f": {
+            "count": 95,
+            "persentage": 0.6395153147088523
+        },
+        "g": {
+            "count": 171,
+            "persentage": 1.1511275664759342
+        },
+        "h": {
+            "count": 428,
+            "persentage": 2.88118478626725
+        },
+        "i": {
+            "count": 382,
+            "persentage": 2.5715247391450693
+        },
+        "j": {
+            "count": 3,
+            "persentage": 0.02019522046449007
+        },
+        "k": {
+            "count": 310,
+            "persentage": 2.086839447997307
+        },
+        "l": {
+            "count": 539,
+            "persentage": 3.628407943453383
+        },
+        "m": {
+            "count": 227,
+            "persentage": 1.5281050151464153
+        },
+        "n": {
+            "count": 618,
+            "persentage": 4.160215415684954
+        },
+        "o": {
+            "count": 506,
+            "persentage": 3.406260518343992
+        },
+        "p": {
+            "count": 165,
+            "persentage": 1.110737125546954
+        },
+        "q": {
+            "count": 5,
+            "persentage": 0.03365870077415012
+        },
+        "r": {
+            "count": 737,
+            "persentage": 4.961292494109728
+        },
+        "s": {
+            "count": 4339,
+            "persentage": 29.20902053180747
+        },
+        "t": {
+            "count": 795,
+            "persentage": 5.351733423089869
+        },
+        "u": {
+            "count": 96,
+            "persentage": 0.6462470548636823
+        },
+        "v": {
+            "count": 5,
+            "persentage": 0.03365870077415012
+        },
+        "w": {
+            "count": 68,
+            "persentage": 0.4577583305284416
+        },
+        "x": {
+            "count": 84,
+            "persentage": 0.565466173005722
+        },
+        "y": {
+            "count": 1527,
+            "persentage": 10.279367216425445
+        },
+        "z": {
+            "count": 41,
+            "persentage": 0.276001346348031
+        },
+        "total": {
+            "count": 14855,
+            "persentage": 100
+        }
+    }
+]

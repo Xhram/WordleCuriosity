@@ -1,0 +1,687 @@
+[
+    [
+        {
+            "letter": "total",
+            "count": 14855,
+            "persentage": 100
+        },
+        {
+            "letter": "s",
+            "count": 1666,
+            "persentage": 11.215079097946818
+        },
+        {
+            "letter": "p",
+            "count": 1130,
+            "persentage": 7.606866374957927
+        },
+        {
+            "letter": "b",
+            "count": 1003,
+            "persentage": 6.751935375294514
+        },
+        {
+            "letter": "c",
+            "count": 970,
+            "persentage": 6.529787950185123
+        },
+        {
+            "letter": "m",
+            "count": 951,
+            "persentage": 6.401884887243352
+        },
+        {
+            "letter": "t",
+            "count": 882,
+            "persentage": 5.93739481656008
+        },
+        {
+            "letter": "a",
+            "count": 868,
+            "persentage": 5.84315045439246
+        },
+        {
+            "letter": "r",
+            "count": 795,
+            "persentage": 5.351733423089869
+        },
+        {
+            "letter": "d",
+            "count": 735,
+            "persentage": 4.947829013800067
+        },
+        {
+            "letter": "g",
+            "count": 685,
+            "persentage": 4.611242006058566
+        },
+        {
+            "letter": "f",
+            "count": 646,
+            "persentage": 4.348704140020195
+        },
+        {
+            "letter": "l",
+            "count": 625,
+            "persentage": 4.207337596768765
+        },
+        {
+            "letter": "h",
+            "count": 532,
+            "persentage": 3.581285762369572
+        },
+        {
+            "letter": "n",
+            "count": 468,
+            "persentage": 3.1504543924604507
+        },
+        {
+            "letter": "w",
+            "count": 434,
+            "persentage": 2.92157522719623
+        },
+        {
+            "letter": "k",
+            "count": 429,
+            "persentage": 2.88791652642208
+        },
+        {
+            "letter": "o",
+            "count": 352,
+            "persentage": 2.3695725345001684
+        },
+        {
+            "letter": "e",
+            "count": 330,
+            "persentage": 2.221474251093908
+        },
+        {
+            "letter": "v",
+            "count": 284,
+            "persentage": 1.9118142039717265
+        },
+        {
+            "letter": "j",
+            "count": 225,
+            "persentage": 1.5146415348367555
+        },
+        {
+            "letter": "u",
+            "count": 217,
+            "persentage": 1.460787613598115
+        },
+        {
+            "letter": "y",
+            "count": 205,
+            "persentage": 1.380006731740155
+        },
+        {
+            "letter": "i",
+            "count": 180,
+            "persentage": 1.2117132278694043
+        },
+        {
+            "letter": "z",
+            "count": 122,
+            "persentage": 0.8212722988892628
+        },
+        {
+            "letter": "q",
+            "count": 103,
+            "persentage": 0.6933692359474924
+        },
+        {
+            "letter": "x",
+            "count": 18,
+            "persentage": 0.12117132278694043
+        }
+    ],
+    [
+        {
+            "letter": "total",
+            "count": 14855,
+            "persentage": 100
+        },
+        {
+            "letter": "a",
+            "count": 2682,
+            "persentage": 18.054527095254123
+        },
+        {
+            "letter": "o",
+            "count": 2414,
+            "persentage": 16.250420733759675
+        },
+        {
+            "letter": "e",
+            "count": 1857,
+            "persentage": 12.500841467519352
+        },
+        {
+            "letter": "i",
+            "count": 1598,
+            "persentage": 10.757320767418378
+        },
+        {
+            "letter": "u",
+            "count": 1368,
+            "persentage": 9.209020531807473
+        },
+        {
+            "letter": "r",
+            "count": 1019,
+            "persentage": 6.859643217771794
+        },
+        {
+            "letter": "l",
+            "count": 774,
+            "persentage": 5.210366879838438
+        },
+        {
+            "letter": "h",
+            "count": 604,
+            "persentage": 4.065971053517335
+        },
+        {
+            "letter": "n",
+            "count": 388,
+            "persentage": 2.611915180074049
+        },
+        {
+            "letter": "y",
+            "count": 298,
+            "persentage": 2.006058566139347
+        },
+        {
+            "letter": "t",
+            "count": 256,
+            "persentage": 1.7233254796364859
+        },
+        {
+            "letter": "p",
+            "count": 249,
+            "persentage": 1.6762032985526758
+        },
+        {
+            "letter": "m",
+            "count": 211,
+            "persentage": 1.4203971726691351
+        },
+        {
+            "letter": "c",
+            "count": 207,
+            "persentage": 1.3934702120498148
+        },
+        {
+            "letter": "w",
+            "count": 177,
+            "persentage": 1.191518007404914
+        },
+        {
+            "letter": "k",
+            "count": 114,
+            "persentage": 0.7674183776506227
+        },
+        {
+            "letter": "s",
+            "count": 113,
+            "persentage": 0.7606866374957927
+        },
+        {
+            "letter": "b",
+            "count": 108,
+            "persentage": 0.7270279367216426
+        },
+        {
+            "letter": "d",
+            "count": 108,
+            "persentage": 0.7270279367216426
+        },
+        {
+            "letter": "g",
+            "count": 94,
+            "persentage": 0.6327835745540222
+        },
+        {
+            "letter": "x",
+            "count": 63,
+            "persentage": 0.4240996297542915
+        },
+        {
+            "letter": "v",
+            "count": 57,
+            "persentage": 0.38370918882531135
+        },
+        {
+            "letter": "f",
+            "count": 37,
+            "persentage": 0.24907438572871085
+        },
+        {
+            "letter": "z",
+            "count": 30,
+            "persentage": 0.2019522046449007
+        },
+        {
+            "letter": "q",
+            "count": 16,
+            "persentage": 0.10770784247728037
+        },
+        {
+            "letter": "j",
+            "count": 13,
+            "persentage": 0.08751262201279031
+        }
+    ],
+    [
+        {
+            "letter": "total",
+            "count": 14855,
+            "persentage": 100
+        },
+        {
+            "letter": "a",
+            "count": 1374,
+            "persentage": 9.249410972736452
+        },
+        {
+            "letter": "r",
+            "count": 1354,
+            "persentage": 9.114776169639851
+        },
+        {
+            "letter": "i",
+            "count": 1173,
+            "persentage": 7.896331201615618
+        },
+        {
+            "letter": "n",
+            "count": 1119,
+            "persentage": 7.5328172332547965
+        },
+        {
+            "letter": "o",
+            "count": 1113,
+            "persentage": 7.4924267923258165
+        },
+        {
+            "letter": "e",
+            "count": 998,
+            "persentage": 6.718276674520364
+        },
+        {
+            "letter": "l",
+            "count": 973,
+            "persentage": 6.549983170649614
+        },
+        {
+            "letter": "u",
+            "count": 754,
+            "persentage": 5.075732076741838
+        },
+        {
+            "letter": "t",
+            "count": 735,
+            "persentage": 4.947829013800067
+        },
+        {
+            "letter": "s",
+            "count": 613,
+            "persentage": 4.126556714910804
+        },
+        {
+            "letter": "m",
+            "count": 580,
+            "persentage": 3.9044092898014138
+        },
+        {
+            "letter": "c",
+            "count": 467,
+            "persentage": 3.143722652305621
+        },
+        {
+            "letter": "d",
+            "count": 467,
+            "persentage": 3.143722652305621
+        },
+        {
+            "letter": "g",
+            "count": 427,
+            "persentage": 2.87445304611242
+        },
+        {
+            "letter": "p",
+            "count": 426,
+            "persentage": 2.86772130595759
+        },
+        {
+            "letter": "b",
+            "count": 386,
+            "persentage": 2.598451699764389
+        },
+        {
+            "letter": "k",
+            "count": 329,
+            "persentage": 2.2147425109390775
+        },
+        {
+            "letter": "w",
+            "count": 305,
+            "persentage": 2.0531807472231574
+        },
+        {
+            "letter": "v",
+            "count": 278,
+            "persentage": 1.8714237630427466
+        },
+        {
+            "letter": "y",
+            "count": 246,
+            "persentage": 1.6560080780881856
+        },
+        {
+            "letter": "f",
+            "count": 204,
+            "persentage": 1.3732749915853248
+        },
+        {
+            "letter": "z",
+            "count": 165,
+            "persentage": 1.110737125546954
+        },
+        {
+            "letter": "h",
+            "count": 146,
+            "persentage": 0.9828340626051835
+        },
+        {
+            "letter": "x",
+            "count": 146,
+            "persentage": 0.9828340626051835
+        },
+        {
+            "letter": "j",
+            "count": 59,
+            "persentage": 0.39717266913497135
+        },
+        {
+            "letter": "q",
+            "count": 18,
+            "persentage": 0.12117132278694043
+        }
+    ],
+    [
+        {
+            "letter": "total",
+            "count": 14855,
+            "persentage": 100
+        },
+        {
+            "letter": "e",
+            "count": 2531,
+            "persentage": 17.03803433187479
+        },
+        {
+            "letter": "a",
+            "count": 1319,
+            "persentage": 8.8791652642208
+        },
+        {
+            "letter": "i",
+            "count": 1048,
+            "persentage": 7.054863682261865
+        },
+        {
+            "letter": "t",
+            "count": 1039,
+            "persentage": 6.994278020868395
+        },
+        {
+            "letter": "n",
+            "count": 885,
+            "persentage": 5.957590037024571
+        },
+        {
+            "letter": "l",
+            "count": 869,
+            "persentage": 5.849882194547291
+        },
+        {
+            "letter": "o",
+            "count": 827,
+            "persentage": 5.567149108044429
+        },
+        {
+            "letter": "r",
+            "count": 809,
+            "persentage": 5.445977785257489
+        },
+        {
+            "letter": "s",
+            "count": 588,
+            "persentage": 3.9582632110400535
+        },
+        {
+            "letter": "k",
+            "count": 571,
+            "persentage": 3.8438236284079434
+        },
+        {
+            "letter": "d",
+            "count": 551,
+            "persentage": 3.709188825311343
+        },
+        {
+            "letter": "u",
+            "count": 492,
+            "persentage": 3.3120161561763712
+        },
+        {
+            "letter": "g",
+            "count": 487,
+            "persentage": 3.2783574554022215
+        },
+        {
+            "letter": "p",
+            "count": 466,
+            "persentage": 3.136990912150791
+        },
+        {
+            "letter": "c",
+            "count": 456,
+            "persentage": 3.069673510602491
+        },
+        {
+            "letter": "m",
+            "count": 445,
+            "persentage": 2.9956243688993607
+        },
+        {
+            "letter": "h",
+            "count": 283,
+            "persentage": 1.9050824638168966
+        },
+        {
+            "letter": "b",
+            "count": 282,
+            "persentage": 1.8983507236620667
+        },
+        {
+            "letter": "f",
+            "count": 258,
+            "persentage": 1.7367889599461461
+        },
+        {
+            "letter": "v",
+            "count": 177,
+            "persentage": 1.191518007404914
+        },
+        {
+            "letter": "z",
+            "count": 145,
+            "persentage": 0.9761023224503534
+        },
+        {
+            "letter": "w",
+            "count": 143,
+            "persentage": 0.9626388421406933
+        },
+        {
+            "letter": "y",
+            "count": 124,
+            "persentage": 0.834735779198923
+        },
+        {
+            "letter": "j",
+            "count": 42,
+            "persentage": 0.282733086502861
+        },
+        {
+            "letter": "x",
+            "count": 15,
+            "persentage": 0.10097610232245036
+        },
+        {
+            "letter": "q",
+            "count": 3,
+            "persentage": 0.02019522046449007
+        }
+    ],
+    [
+        {
+            "letter": "total",
+            "count": 14855,
+            "persentage": 100
+        },
+        {
+            "letter": "s",
+            "count": 4339,
+            "persentage": 29.20902053180747
+        },
+        {
+            "letter": "e",
+            "count": 1739,
+            "persentage": 11.70649612924941
+        },
+        {
+            "letter": "y",
+            "count": 1527,
+            "persentage": 10.279367216425445
+        },
+        {
+            "letter": "a",
+            "count": 885,
+            "persentage": 5.957590037024571
+        },
+        {
+            "letter": "d",
+            "count": 874,
+            "persentage": 5.883540895321441
+        },
+        {
+            "letter": "t",
+            "count": 795,
+            "persentage": 5.351733423089869
+        },
+        {
+            "letter": "r",
+            "count": 737,
+            "persentage": 4.961292494109728
+        },
+        {
+            "letter": "n",
+            "count": 618,
+            "persentage": 4.160215415684954
+        },
+        {
+            "letter": "l",
+            "count": 539,
+            "persentage": 3.628407943453383
+        },
+        {
+            "letter": "o",
+            "count": 506,
+            "persentage": 3.406260518343992
+        },
+        {
+            "letter": "h",
+            "count": 428,
+            "persentage": 2.88118478626725
+        },
+        {
+            "letter": "i",
+            "count": 382,
+            "persentage": 2.5715247391450693
+        },
+        {
+            "letter": "k",
+            "count": 310,
+            "persentage": 2.086839447997307
+        },
+        {
+            "letter": "m",
+            "count": 227,
+            "persentage": 1.5281050151464153
+        },
+        {
+            "letter": "g",
+            "count": 171,
+            "persentage": 1.1511275664759342
+        },
+        {
+            "letter": "p",
+            "count": 165,
+            "persentage": 1.110737125546954
+        },
+        {
+            "letter": "c",
+            "count": 146,
+            "persentage": 0.9828340626051835
+        },
+        {
+            "letter": "u",
+            "count": 96,
+            "persentage": 0.6462470548636823
+        },
+        {
+            "letter": "f",
+            "count": 95,
+            "persentage": 0.6395153147088523
+        },
+        {
+            "letter": "x",
+            "count": 84,
+            "persentage": 0.565466173005722
+        },
+        {
+            "letter": "b",
+            "count": 70,
+            "persentage": 0.47122181083810166
+        },
+        {
+            "letter": "w",
+            "count": 68,
+            "persentage": 0.4577583305284416
+        },
+        {
+            "letter": "z",
+            "count": 41,
+            "persentage": 0.276001346348031
+        },
+        {
+            "letter": "q",
+            "count": 5,
+            "persentage": 0.03365870077415012
+        },
+        {
+            "letter": "v",
+            "count": 5,
+            "persentage": 0.03365870077415012
+        },
+        {
+            "letter": "j",
+            "count": 3,
+            "persentage": 0.02019522046449007
+        }
+    ]
+]
