@@ -3,6 +3,8 @@
 
 
 The best starting word for Wordle is **pares**.
+![Pares](./analysis/Pares.png)
+
 
 ## Why is Pares the best starting word?
 
