@@ -4,13 +4,12 @@
 
 The best starting word for Wordle is **AEROS**.<br>
 
-
-![Pares](./analysis/Aeros.png)
+![Pares](./assets/Aeros.png)
 
 # Why is Aeros the best starting word?
 
 ## Most common letter:
-This started by asking what is the most common letter in Wordle. So I extracted the [word list from Wordle](./words.json), then created a [Node.js script](./analysis/index.js) with a function `getMostCommonLetters(wordList)`. This left me with two files: [`most_common_letters.json`](./analysis/most_common_letters.json) and [`sorted_most_common_letters.json`](./analysis/sorted_most_common_letters.json). I simplified the results into a table at [`sorted_most_common_letters_table.md`](./analysis/sorted_most_common_letters_table.md).
+This started by asking what is the most common letter in Wordle. So I extracted the [word list from Wordle](./words.json), then created a [Node.js script](./analysis/index.js) with a function `getMostCommonLetters(wordList)`. This left me with two files: [`most_common_letters.json`](./analysis/stats/most_common_letters.json) and [`sorted_most_common_letters.json`](./analysis/stats/sorted_most_common_letters.json). I simplified the results into a table at [`sorted_most_common_letters_table.md`](./analysis/stats/sorted_most_common_letters_table.md).
 
 | Letter | Percentage | Count |
 | :----: | ---------- | ----- |
@@ -43,7 +42,7 @@ x | 0.44% | 326
 q | 0.20% | 145
 
 ## Most common letter per position
-The next step was to find the most common letter at each position in a five-letter word. I wrote a function `getMostCommonLettersPerPosition(wordList)`. Running this function produced two files: [`sorted_most_common_letters_per_position.json`](./analysis/sorted_most_common_letters_per_position.json) and [`most_common_letters_per_position.json`](./analysis/most_common_letters_per_position.json). I also created a [table](./analysis/sorted_most_common_letters_per_position_table.md) for easier viewing.
+The next step was to find the most common letter at each position in a five-letter word. I wrote a function `getMostCommonLettersPerPosition(wordList)`. Running this function produced two files: [`sorted_most_common_letters_per_position.json`](./analysis/stats/sorted_most_common_letters_per_position.json) and [`most_common_letters_per_position.json`](./analysis/stats/most_common_letters_per_position.json). I also created a [table](./analysis/stats/sorted_most_common_letters_per_position_table.md) for easier viewing.
 
 | Rank | 1st Letter | 2nd Letter | 3rd Letter | 4th Letter | 5th Letter |
 | :--: | :--: | :--: | :--: | :--: | :--: |
@@ -76,10 +75,10 @@ The next step was to find the most common letter at each position in a five-lett
 | 26 | x (0.1%) | j (0.1%) | q (0.1%) | q (0.0%) | j (0.0%) |
 
 ## Best Words (I Thought)
-I analyzed every word by summing the percentage likelihood of each letter appearing in its specific position, resulting in a score for each word. This process initially identified `sanes` as the top word, but since repeated letters are less useful for early guesses, I filtered out words with duplicate letters. This was implemented in the `getBestStartingWordleWord(wordList)` function, which produced the files [`best_starting_wordle_words_from_position_chances_no_repeating_letters.json`](./analysis/best_starting_wordle_words_from_position_chances_no_repeating_letters.json) and [`best_starting_wordle_words_from_position_chances.json`](./analysis/best_starting_wordle_words_from_position_chances.json). The table below shows the results.
+I analyzed every word by summing the percentage likelihood of each letter appearing in its specific position, resulting in a score for each word. This process initially identified `sanes` as the top word, but since repeated letters are less useful for early guesses, I filtered out words with duplicate letters. This was implemented in the `getBestStartingWordleWord(wordList)` function, which produced the files [`best_starting_wordle_words_from_position_chances_no_repeating_letters.json`](./analysis/stats/best_starting_wordle_words_from_position_chances_no_repeating_letters.json) and [`best_starting_wordle_words_from_position_chances.json`](./analysis/stats/best_starting_wordle_words_from_position_chances.json). The table below shows the results.
 
 *Please note that, as previously mentioned, the Score is not truly a percentage but a summative representation of the likelihood a given letter would appear in its given spot in the word—this % can be very misleading.*
-*Also note: due to the length of this list, only the first 10 and last 5 will be in the [README.md](./README.md). Please see the [JSON file](./analysis/best_starting_wordle_words_from_position_chances_no_repeating_letters.json) ([`best_starting_wordle_words_from_position_chances_no_repeating_letters.json`](./analysis/best_starting_wordle_words_from_position_chances_no_repeating_letters.json)) or the [table file](./analysis/best_starting_wordle_words_tables_from_position_chances_no_repeating_letters.md) ([`best_starting_wordle_words_tables_from_position_chances_no_repeating_letters.md`](./analysis/best_starting_wordle_words_tables_from_position_chances_no_repeating_letters.md)) for the full list.*
+*Also note: due to the length of this list, only the first 10 and last 5 will be in the [README.md](./README.md). Please see the [JSON file](./analysis/stats/best_starting_wordle_words_from_position_chances_no_repeating_letters.json) ([`best_starting_wordle_words_from_position_chances_no_repeating_letters.json`](./analysis/stats/best_starting_wordle_words_from_position_chances_no_repeating_letters.json)) or the [table file](./analysis/stats/best_starting_wordle_words_tables_from_position_chances_no_repeating_letters.md) ([`best_starting_wordle_words_tables_from_position_chances_no_repeating_letters.md`](./analysis/stats/best_starting_wordle_words_tables_from_position_chances_no_repeating_letters.md)) for the full list.*
 
 | Rank | Word | Score |
 | :-: | :-: | :-: |
@@ -180,9 +179,9 @@ The results below use a Green Score Weight of 0.1 and a Pop Score Weight of 0.9,
 | 9365 | jumby | 14.72 | 13.37 | 26.81 |
 
 You can view the full ranked lists in the generated JSON and table files in the `analysis` folder, such as:
-- [`best_starting_wordle_words_by_pop_score_table.md`](./analysis/best_starting_wordle_words_by_pop_score_table.md)
-- [`best_starting_wordle_words_by_pop_score_no_repeating_letters.json`](./analysis/best_starting_wordle_words_by_pop_score_no_repeating_letters.json)
-- [`best_starting_wordle_words_by_pop_score.json`](./analysis/best_starting_wordle_words_by_pop_score.json)
+- [`best_starting_wordle_words_by_pop_score_table.md`](./analysis/stats/best_starting_wordle_words_by_pop_score_table.md)
+- [`best_starting_wordle_words_by_pop_score_no_repeating_letters.json`](./analysis/stats/best_starting_wordle_words_by_pop_score_no_repeating_letters.json)
+- [`best_starting_wordle_words_by_pop_score.json`](./analysis/stats/best_starting_wordle_words_by_pop_score.json)
 
 
 

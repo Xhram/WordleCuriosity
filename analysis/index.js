@@ -40,7 +40,6 @@ function getMostCommonLetters(wordList) {
     for (let word of wordList) {
         for (let letter of word) {
             if (letterDict[letter]) {
-
                 letterDict[letter].count++;
                 letterDict["total"].count++;
             }
@@ -50,14 +49,14 @@ function getMostCommonLetters(wordList) {
     for (let letter of ALPHABET) {
         letterDict[letter].persentage = letterDict[letter].count / letterDict["total"].count * 100;
     }
-    saveAnalysisResults('./analysis/most_common_letters.json', letterDict);
+    saveAnalysisResults('./analysis/stats/most_common_letters.json', letterDict);
     
     //convert to array and sort by count 
     let sortedLetters = Object.entries(letterDict)
         .sort((a, b) => b[1].count - a[1].count)
         .map(([key, value]) => ({ letter: key, ...value }));
 
-    saveAnalysisResults('./analysis/sorted_most_common_letters.json', sortedLetters);
+    saveAnalysisResults('./analysis/stats/sorted_most_common_letters.json', sortedLetters);
 
     return {letterDict:letterDict, sortedLetters: sortedLetters};
 }
@@ -71,7 +70,7 @@ function saveMostCommonLettersToTable(wordList) {
     for (let letter of sortedLetters) {
         tableOut += `${letter.letter} | ${letter.persentage.toFixed(2)}% | ${letter.count}\n`;
     }
-    fs.writeFileSync('./analysis/sorted_most_common_letters_table.md', tableOut);
+    fs.writeFileSync('./analysis/stats/sorted_most_common_letters_table.md', tableOut);
 
     return tableOut;
 }
@@ -86,7 +85,6 @@ function getMostCommonLettersPerPosition(wordList) {
         letterDicts.push(letterDict);
     }
     
-
     for (let word of wordList) {
         for (let i = 0; i < word.length; i++) {
             let letter = word[i];
@@ -103,17 +101,16 @@ function getMostCommonLettersPerPosition(wordList) {
             letterDict[letter].persentage = letterDict[letter].count / letterDict["total"].count * 100;
         }
     }
-    saveAnalysisResults('./analysis/most_common_letters_per_position.json', letterDicts);
+    saveAnalysisResults('./analysis/stats/most_common_letters_per_position.json', letterDicts);
 
     //convert to a sorted format
-
     let sortedLettersPerPosition = letterDicts.map(letterDict => 
         Object.entries(letterDict)
             .sort((a, b) => b[1].count - a[1].count)
             .map(([key, value]) => ({ letter: key, ...value }))
     );
 
-    saveAnalysisResults('./analysis/sorted_most_common_letters_per_position.json', sortedLettersPerPosition);
+    saveAnalysisResults('./analysis/stats/sorted_most_common_letters_per_position.json', sortedLettersPerPosition);
 
     return {letterDicts: letterDicts, sortedLettersPerPosition: sortedLettersPerPosition};
 }
@@ -140,7 +137,7 @@ function saveMostCommonLettersPerPositionToTable(wordList) {
         tableOut += "| " + row.join(' | ') + ' |\n';
     }
 
-    fs.writeFileSync('./analysis/sorted_most_common_letters_per_position_table.md', tableOut);
+    fs.writeFileSync('./analysis/stats/sorted_most_common_letters_per_position_table.md', tableOut);
 
     return tableOut;
 }
@@ -167,7 +164,6 @@ function getBestStartingWordleWordByGreenScore(wordList){
             } else {
                 console.error(`Letter ${letter} not found in letterDict for position ${i} in word ${word}`);
                 score.scorePerPosition.push("error");
-                
             }
         }
 
@@ -180,19 +176,19 @@ function getBestStartingWordleWordByGreenScore(wordList){
         score.rank = index + 1;
     });
 
-    saveAnalysisResults('./analysis/best_starting_wordle_words_from_position_chances.json', wordScores);
+    saveAnalysisResults('./analysis/stats/best_starting_wordle_words_from_position_chances.json', wordScores);
 
     // Filtering out words that repeat letters
     let noRepeatingLettersWordScores = wordScores.filter((score) => {
         let letterSet = new Set(score.word);
         return letterSet.size === score.word.length;
-    })
+    });
     
     noRepeatingLettersWordScores.forEach((score, index) => {
         score.rank = index + 1;
     });
 
-    saveAnalysisResults('./analysis/best_starting_wordle_words_from_position_chances_no_repeating_letters.json', noRepeatingLettersWordScores);
+    saveAnalysisResults('./analysis/stats/best_starting_wordle_words_from_position_chances_no_repeating_letters.json', noRepeatingLettersWordScores);
     
     return {
         wordScores: wordScores,
@@ -204,13 +200,13 @@ function saveBestStartingWordleWordsByGreenScoreToTable(wordList) {
     let { noRepeatingLettersWordScores } = getBestStartingWordleWordByGreenScore(wordList);
 
     let tableOut = "Rank | Word | Score\n";
-    tableOut += "-------------------------\n";6
+    tableOut += "-------------------------\n";
 
     for (let scoreObj of noRepeatingLettersWordScores) {
         tableOut += `| ${scoreObj.rank} | ${scoreObj.word} | ${scoreObj.score.toFixed(2)} |\n`;
     }
 
-    fs.writeFileSync('./analysis/best_starting_wordle_words_tables_from_position_chances_no_repeating_letters.md', tableOut);
+    fs.writeFileSync('./analysis/stats/best_starting_wordle_words_tables_from_position_chances_no_repeating_letters.md', tableOut);
 
     return tableOut;
 }
@@ -227,24 +223,20 @@ function getBestStartingWordleWordByPopScore(wordList, greenScoreWeight, popScor
     });
     let greenScoreLetterDict = getMostCommonLetters(wordList).letterDict;
 
-
-
     for(let score of popScores) {
         for(let letter of score.word) {
             score.popScore += greenScoreLetterDict[letter].persentage;
         }
-        
     }
 
     popScores.forEach(score => {
         score.score = (score.popScore * popScoreWeight) + (score.greenScore * greenScoreWeight);
     });
 
-
     popScores.sort((a, b) => b.score - a.score);
 
     saveAnalysisResults(
-        './analysis/best_starting_wordle_words_by_pop_score.json',
+        './analysis/stats/best_starting_wordle_words_by_pop_score.json',
         {
             greenScoreWeight: greenScoreWeight,
             popScoreWeight: popScoreWeight,
@@ -258,7 +250,7 @@ function getBestStartingWordleWordByPopScore(wordList, greenScoreWeight, popScor
     });
 
     saveAnalysisResults(
-        './analysis/best_starting_wordle_words_by_pop_score_no_repeating_letters.json',
+        './analysis/stats/best_starting_wordle_words_by_pop_score_no_repeating_letters.json',
         {
             greenScoreWeight: greenScoreWeight,
             popScoreWeight: popScoreWeight,
@@ -275,9 +267,6 @@ function getBestStartingWordleWordByPopScore(wordList, greenScoreWeight, popScor
     };
 }
 
-
-
-
 function saveBestStartingWordleWordsByPopScoreToTable(wordList, greenScoreWeight, popScoreWeight) {
     let { popScoresNoRepeatingLetters } = getBestStartingWordleWordByPopScore(wordList, greenScoreWeight, popScoreWeight);
     let tableOut = `Weights used: Green Score Weight = ${greenScoreWeight.toFixed(2)}, Pop Score Weight = ${popScoreWeight.toFixed(2)}\n`;
@@ -288,7 +277,7 @@ function saveBestStartingWordleWordsByPopScoreToTable(wordList, greenScoreWeight
         tableOut += `| ${idx + 1} | ${scoreObj.word} | ${scoreObj.score.toFixed(2)} | ${scoreObj.popScore.toFixed(2)} | ${scoreObj.greenScore.toFixed(2)} |\n`;
     });
 
-    fs.writeFileSync('./analysis/best_starting_wordle_words_by_pop_score_table.md', tableOut);
+    fs.writeFileSync('./analysis/stats/best_starting_wordle_words_by_pop_score_table.md', tableOut);
 
     return tableOut;
 }
@@ -463,7 +452,7 @@ function simulateEveryWordleGameWithAStartWordMultithreaded(wordList, startingWo
                             total_result.steps[steps] += stepResults[steps];
                         }
                         // Persist partial progress
-                        saveAnalysisResults(`./analysis/sims/wordle_game_simulation_results_starting_word_${startingWord}.json`, { ...allResults, total_result: total_result });
+                        saveAnalysisResults(`./analysis/sims_results/wordle_game_simulation_results_starting_word_${startingWord}.json`, { ...allResults, total_result: total_result });
                         // Show progress and ETA
                         const elapsed = (Date.now() - startTime) / 1000;
                         const rate = checkedWordsCount / elapsed;
@@ -479,7 +468,7 @@ function simulateEveryWordleGameWithAStartWordMultithreaded(wordList, startingWo
                         if (finishedWorkers === chunks.length) {
                             allResults.total_result = total_result;
                             // Final save
-                            saveAnalysisResults(`./analysis/sims/wordle_game_simulation_results_starting_word_${startingWord}.json`, allResults);
+                            saveAnalysisResults(`./analysis/sims_results/wordle_game_simulation_results_starting_word_${startingWord}.json`, allResults);
                             resolve(allResults);
                         }
                     }
