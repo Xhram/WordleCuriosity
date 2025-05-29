@@ -5,7 +5,7 @@
 The best starting word for Wordle is **pares**.
 ![Pares](./analysis/Pares.png)
 
-
+*I made this simular to a blog post*
 ## Why is Pares the best starting word?
 
 ### Most common letter:
