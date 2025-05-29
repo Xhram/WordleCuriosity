@@ -69,7 +69,7 @@ function saveMostCommonLettersToTable(wordList) {
     for (let letter of sortedLetters) {
         tableOut += `${letter.letter} | ${letter.persentage.toFixed(2)}% | ${letter.count}\n`;
     }
-    fs.writeFileSync('./analysis/sorted_most_common_letters_table.txt', tableOut);
+    fs.writeFileSync('./analysis/sorted_most_common_letters_table.md', tableOut);
 
     return tableOut;
 }
@@ -138,7 +138,7 @@ function saveMostCommonLettersPerPositionToTable(wordList) {
         tableOut += "| " + row.join(' | ') + ' |\n';
     }
 
-    fs.writeFileSync('./analysis/sorted_most_common_letters_per_position_table.txt', tableOut);
+    fs.writeFileSync('./analysis/sorted_most_common_letters_per_position_table.md', tableOut);
 
     return tableOut;
 }
@@ -208,7 +208,7 @@ function saveBestStartingWordleWordsByGreenScoreToTable(wordList) {
         tableOut += `| ${scoreObj.rank} | ${scoreObj.word} | ${scoreObj.score.toFixed(2)} |\n`;
     }
 
-    fs.writeFileSync('./analysis/best_starting_wordle_words_tables_from_position_chances_no_repeating_letters.txt', tableOut);
+    fs.writeFileSync('./analysis/best_starting_wordle_words_tables_from_position_chances_no_repeating_letters.md', tableOut);
 
     return tableOut;
 }
@@ -287,9 +287,9 @@ function saveBestStartingWordleWordsByPopScoreToTable(wordList, greenScoreWeight
         tableOut += `| ${idx + 1} | ${scoreObj.word} | ${scoreObj.score.toFixed(2)} | ${scoreObj.popScore.toFixed(2)} | ${scoreObj.greenScore.toFixed(2)} |\n`;
     });
 
-    fs.writeFileSync('./analysis/best_starting_wordle_words_by_pop_score_table.txt', tableOut);
+    fs.writeFileSync('./analysis/best_starting_wordle_words_by_pop_score_table.md', tableOut);
 
     return tableOut;
 }
 
-saveBestStartingWordleWordsByPopScoreToTable(wordList, 0.1, 0.9);
+saveBestStartingWordleWordsByPopScoreToTable(wordList, .1, .9);
