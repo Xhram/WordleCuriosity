@@ -1,11 +1,13 @@
 # The Best Wordle Starting Word
-*By:Xhram*
+*By:Xhram* <br>
+*I made this simular to a blog post*
 
 
-The best starting word for Wordle is **pares**.
+The best starting word for Wordle is **PARES**.<br>
+*\*for getting green letters of the bat*
+
 ![Pares](./analysis/Pares.png)
 
-*I made this simular to a blog post*
 ## Why is Pares the best starting word?
 
 ### Most common letter:
@@ -82,7 +84,7 @@ The next step was what is the most common letter at any single position in a giv
 ### Best Words
 Lastly I just went through every word and took the percentage that a letter at a give position in a word is and added it together to give it a score. Doing so gives you `sanes` but as you might know double letters aren't as helpful as using a guess on a new letter. Therefore I filtered any words using a letter more then once. Done in this function `getBestStartingWordleWord(wordList)` in turn gives you [`best_starting_wordle_words_no_repeating_letters.json`](./analysis/best_starting_wordle_words_no_repeating_letters.json) and [`best_starting_wordle_words.json`](./analysis/best_starting_wordle_words.json). In the end here is the table I made.
 
-*Please Note that as previously mentioned the Score is not truly a percentage but an summative representation of the likly hood a given letter would appear in its given spot in the word - this % can be very missleading*
+*Please Note that as previously mentioned the Score is not truly a percentage but an summative representation of the likely hood a given letter would appear in its given spot in the word - this % can be very missleading*
 
 *Also note due to the length of this list only the first 100 and last 100 will be in the [README.md](./README.md) but please go to the [json file](./analysis/best_starting_wordle_words_no_repeating_letters.json) ([`best_starting_wordle_words_no_repeating_letters.json`](./analysis/best_starting_wordle_words_no_repeating_letters.json)) or the [table file](./analysis/best_starting_wordle_words_table_no_repeating_letters.txt) ([`best_starting_wordle_words_table_no_repeating_letters.txt`](./analysis/best_starting_wordle_words_table_no_repeating_letters.txt))*
 | Rank | Word | Score |

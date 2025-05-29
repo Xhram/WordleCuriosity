@@ -215,3 +215,4 @@ function saveBestStartingWordleWordsToTable(wordList) {
 
 //Lol thanks for reading the code! I hope you found this little thing as interesting as I did.
 //Xhram - 5/28/2025
+
