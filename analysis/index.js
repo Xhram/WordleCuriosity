@@ -273,7 +273,7 @@ function saveBestStartingWordleWordsByPopScoreToTable(wordList, greenScoreWeight
     let tableOut = `Weights used: Green Score Weight = ${greenScoreWeight.toFixed(2)}, Pop Score Weight = ${popScoreWeight.toFixed(2)}\n`;
     tableOut += "| Rank | Word | Score | Pop Score | Green Score |\n";
     tableOut += "|------|------|-------|-----------|-------------|\n";
-    popScoresNoRepeatingLetters = popScoresNoRepeatingLetters.splice(0, 15); // Limit to top 100 for table output
+    popScoresNoRepeatingLetters = popScoresNoRepeatingLetters; // Limit to top 100 for table output
     popScoresNoRepeatingLetters.forEach((scoreObj, idx) => {
         tableOut += `| ${idx + 1} | ${scoreObj.word} | ${scoreObj.score.toFixed(2)} | ${scoreObj.popScore.toFixed(2)} | ${scoreObj.greenScore.toFixed(2)} |\n`;
     });
