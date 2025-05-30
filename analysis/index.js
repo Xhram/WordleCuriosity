@@ -598,6 +598,8 @@ function getEveryPossibleWordleGuessWithAStartingWordAndEveryTargetWord(wordList
     return results;
 }
 
+
+
 function getEveryPossibleWordleGuessWithEveryStartingWordAndEveryTargetWord(wordList) {
     let results = []
     for(let startingWord of wordList){
