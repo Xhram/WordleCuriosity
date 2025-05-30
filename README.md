@@ -210,9 +210,11 @@ Let's break down the computational cost of this approach:
 ### Total Calculations:
 The total number of calculations is approximately:
 $$32,780,682,992,000 \text{ calculations}$$
+*Note: These calculations are not the actual number of operations but an interpretation of the amount of calculations a high-level language performs. This assumes that every step in the high-level language is directly mappable to a CPU instruction. The real number of operations far exceeds this number due to additional overhead, such as memory management, branching, and other low-level operations performed by the CPU.*
 
 Given the sheer scale of this computation, I implemented multithreading to speed up the process.
 
+*Note: This process took approximately 4 hours of computing on my i7 14th Gen CPU utilizing all 28 threads.*
 ---
 
 ## Results
