@@ -2,6 +2,7 @@ import fs from 'fs';
 import { Worker, isMainThread, parentPort } from 'worker_threads';
 import seedrandom from 'seedrandom';
 
+
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
 
 function loadWordList(filePath) {
@@ -282,7 +283,7 @@ function saveBestStartingWordleWordsByPopScoreToTable(wordList, greenScoreWeight
     return tableOut;
 }
 
-let depth5Checks = 0;
+
 
 function recursiveWordleGameSimulate(wordList, startingWord, targetWord, history, depth) {
     let stepsToSolve = {1:0, 2:0, 3:0, 4:0, 5:0};
@@ -381,7 +382,6 @@ function recursiveWordleGameSimulate(wordList, startingWord, targetWord, history
 
 
 
-// Keep the original function:
 function simulateEveryWordleGameWithAStartWord(wordList, startingWord) {
     let allResults = {};
     let total = { steps: {1:0, 2:0, 3:0, 4:0, 5:0}, average: 0, totalGames: 0 };
@@ -405,7 +405,7 @@ function simulateEveryWordleGameWithAStartWord(wordList, startingWord) {
     saveAnalysisResults('./analysis/wordle_game_simulation_results.json', allResults);
     return allResults;
 }
-//simulateEveryWordleGameWithAStartWord(wordList, "stare");
+
 function randomWordListShuffle(wordList, seed) {
     let rng = seedrandom(seed);
     let shuffledList = JSON.parse(JSON.stringify(wordList));
@@ -416,7 +416,8 @@ function randomWordListShuffle(wordList, seed) {
     }
     return shuffledList;
 }
-// New function that uses multithreading, progress, and ETA:
+
+
 function simulateEveryWordleGameWithAStartWordMultithreaded(wordList, startingWord, numThreads = 4) {
     const totalWords = wordList.length;
     const allResults = {};
@@ -499,8 +500,171 @@ function simulateEveryWordleGameWithAStartWordMultithreaded(wordList, startingWo
     });
 }
 
-simulateEveryWordleGameWithAStartWordMultithreaded(wordList, "aeros", 26)
-    .then((results) => {
-        console.log("Multithreaded simulation complete!");
-    })
-    .catch((err) => console.error(err));
+
+
+function getHowManyWordsArePossibleGuessesWithAStartingWordAndATargetWord(wordList, startingWord, targetWord) {
+    
+    let correctLetters = Array(5).fill("");
+    for( let i = 0; i < startingWord.length; i++) {
+        if (startingWord[i] === targetWord[i]) {
+            correctLetters[i] = startingWord[i];
+        }
+    }
+    let incorrectLetters = new Set();
+    for (let i = 0; i < startingWord.length; i++) {
+        if (!targetWord.includes(startingWord[i])) {
+            incorrectLetters.add(startingWord[i]);
+        }
+    }
+    incorrectLetters = Array.from(incorrectLetters);
+
+    let wronglyPositionedLetters = Array(5).fill("");
+    for( let i = 0; i < startingWord.length; i++) {
+        if (startingWord[i] != targetWord[i] && targetWord.includes(startingWord[i])) {
+            wronglyPositionedLetters[i] = startingWord[i];
+        }
+    }
+
+    let possibleWords = wordList.filter(word => {
+        if (word === targetWord) {
+            return true;
+        }
+        let moddedWord = word;
+        for (let i = 0; i < 5; i++) {
+            if (correctLetters[i] && word[i] !== correctLetters[i]) {
+                return false;
+            }
+            if(wronglyPositionedLetters[i] && word[i] === wronglyPositionedLetters[i]) {
+                return false;
+            }
+            let indexOfWronglyPositioned = moddedWord.indexOf(wronglyPositionedLetters[i]);
+
+            if(indexOfWronglyPositioned == -1) {
+                return false;
+            } else {
+                moddedWord = moddedWord.slice(0, indexOfWronglyPositioned) + moddedWord.slice(indexOfWronglyPositioned + 1);
+            }
+        }
+
+        for (let letter of incorrectLetters) {
+            if (word.includes(letter)) {
+                return false;
+            }
+        }
+
+        return true;
+    });
+    let possibleWordsCount = possibleWords.length;
+    return {possibleWordsCount, possibleWords};
+}
+// console.log(getHowManyWordsArePossibleGuessesWithAStartingWordAndATargetWord(["txttx","tttxt"], "xcxcc","txttx"))
+
+function getEveryPossibleWordleGuessWithAStartingWordAndEveryTargetWord(wordList, startingWord, options = {}) {
+    const {
+        showProgress = true,
+        save = true,
+        savePath = `./analysis/sims_results/raw (.json)/wordle_game_simulation_results_starting_word_${startingWord}.json`
+    } = options;
+
+    let results = {
+        startingWord: startingWord,
+        averagePossibleWordsCount: 0,
+        totalPossibleWordsCount: 0,
+        games: []
+    };
+    for (let word of wordList) {
+        let { possibleWordsCount } = getHowManyWordsArePossibleGuessesWithAStartingWordAndATargetWord(wordList, startingWord, word);
+        results.games.push({
+            targetWord: word,
+            possibleWordsCount: possibleWordsCount
+        });
+        results.totalPossibleWordsCount += possibleWordsCount;
+        if (showProgress) {
+            const index = results.games.length;
+            console.clear();
+            console.log(`Progress: ${((index / wordList.length) * 100).toFixed(2)}% (${index}/${wordList.length})`);
+        }
+    }
+    results.averagePossibleWordsCount = results.totalPossibleWordsCount / wordList.length;
+    if (save) {
+        saveAnalysisResults(savePath, results);
+    }
+    return results;
+}
+
+function getEveryPossibleWordleGuessWithEveryStartingWordAndEveryTargetWord(wordList) {
+    let results = []
+    for(let startingWord of wordList){
+        let result = getEveryPossibleWordleGuessWithAStartingWordAndEveryTargetWord(wordList, startingWord,{showProgress: false, save: false});
+        delete result.games;
+        results.push(result);
+        console.clear();
+        console.log(`Progress: ${((results.length / wordList.length) * 100).toFixed(2)}% (${results.length}/${wordList.length})`);
+        
+    }
+    saveAnalysisResults(`./analysis/sims_results/raw (.json)/every_possible_wordle_guess_with_every_starting_word_and_target_word.json`, results);
+}
+
+
+function getEveryPossibleWordleGuessWithEveryStartingWordAndEveryTargetWordMultithreaded(wordList, numThreads = 4, saveThreshold = 50) {
+    let shuffledList = randomWordListShuffle(wordList, 77);
+    const totalStartingWords = shuffledList.length;
+    const chunkSize = Math.ceil(totalStartingWords / numThreads);
+    const chunks = [];
+    for (let i = 0; i < totalStartingWords; i += chunkSize) {
+        chunks.push(shuffledList.slice(i, i + chunkSize));
+    }
+
+    let completedWorkers = 0;
+    let allResults = [];
+    let resultsCounter = 0;
+    const startTime = Date.now();
+
+    return new Promise((resolve, reject) => {
+        for (let chunk of chunks) {
+            const worker = new Worker('./analysis/workerv2.js', { workerData: null });
+            worker.on('message', (msg) => {
+                if (msg.results) {
+                    allResults.push(...msg.results);
+                    resultsCounter += msg.results.length;
+                    const elapsed = (Date.now() - startTime) / 1000;
+                    const progress = (allResults.length / totalStartingWords * 100).toFixed(2);
+                    console.clear();
+                    console.log(`Progress: ${progress}% (${allResults.length}/${totalStartingWords}) | Elapsed: ${elapsed.toFixed(1)}s`);
+
+                    if (resultsCounter >= saveThreshold) {
+                        resultsCounter = 0;
+                        saveAnalysisResults(
+                            `./analysis/sims_results/raw (.json)/every_possible_wordle_guess_with_every_starting_word_and_target_word_mt.json`,
+                            allResults
+                        );
+                    }
+                }
+                if (msg.done) {
+                    completedWorkers++;
+                    if (completedWorkers === chunks.length) {
+                        saveAnalysisResults(
+                            `./analysis/sims_results/raw (.json)/every_possible_wordle_guess_with_every_starting_word_and_target_word_mt.json`,
+                            allResults
+                        );
+                        resolve(allResults);
+                    }
+                }
+            });
+            worker.on('error', (err) => reject(err));
+            worker.postMessage({ chunk, globalWordList: wordList });
+        }
+    });
+}
+if (isMainThread && false) {
+    console.log("Starting analysis...");
+    getEveryPossibleWordleGuessWithEveryStartingWordAndEveryTargetWordMultithreaded(wordList, 26)
+        .catch(err => {
+            console.error("Multithreaded computation failed:", err);
+            process.exit(1);
+        });
+
+}
+// time for first is 300
+
+export {getEveryPossibleWordleGuessWithAStartingWordAndEveryTargetWord, getHowManyWordsArePossibleGuessesWithAStartingWordAndATargetWord}
