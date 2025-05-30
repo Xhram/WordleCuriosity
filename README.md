@@ -223,6 +223,7 @@ Reduction % = 100 - (averagePossibleWordsCount / wordList.length * 100)
 ```
 
 Here are the top results:
+[*Full List Here*](./analysis/sims_results/table%20(.md)/every_possible_wordle_guess_with_every_starting_word_and_target_word_table.md)
 
 | Rank | Word  | Reduction % | Average Possible Words Count |
 | :--: | :----: | :--------: | :-------------------------: |
