@@ -662,15 +662,60 @@ function getEveryPossibleWordleGuessWithEveryStartingWordAndEveryTargetWordMulti
         }
     });
 }
-if (isMainThread) {
-    console.log("Starting analysis...");
-    getEveryPossibleWordleGuessWithEveryStartingWordAndEveryTargetWordMultithreaded(wordList, 28)
-        .catch(err => {
-            console.error("Multithreaded computation failed:", err);
-            process.exit(1);
-        });
+// if (isMainThread) {
+//     console.log("Starting analysis...");
+//     getEveryPossibleWordleGuessWithEveryStartingWordAndEveryTargetWordMultithreaded(wordList, 28)
+//         .catch(err => {
+//             console.error("Multithreaded computation failed:", err);
+//             process.exit(1);
+//         });
 
-}
+// }
 // time for first is 300
+
+
+
+function convertGetEveryPossibleWordleGuessWithEveryStartingWordAndEveryTargetWordDataToTable() {
+    const analysisFilePath = `./analysis/sims_results/raw (.json)/every_possible_wordle_guess_with_every_starting_word_and_target_word_mt.json`;
+    const outputTablePath = './analysis/sims_results/table (.md)/every_possible_wordle_guess_with_every_starting_word_and_target_word_table.md';
+    
+    try {
+        const data = loadWordList(analysisFilePath);
+        
+        if (!Array.isArray(data)) {
+            throw new Error("Invalid data format: Expected an array.");
+        }
+        
+        // Calculate reduction percentage and sort by it
+        const sortedData = data.map((entry) => {
+            const reductionPercentage = 100 - (entry.averagePossibleWordsCount / wordList.length) * 100;
+            return {
+                word: entry.startingWord,
+                reductionPercentage: reductionPercentage,
+                averagePossibleWordsCount: entry.averagePossibleWordsCount,
+            };
+        }).sort((a, b) => b.reductionPercentage - a.reductionPercentage);
+        
+        // Generate table
+        let tableOut = "| Rank | Word | Reduction % | Average Possible Words Count |\n";
+        tableOut += "|------|------|-------------|-----------------------------|\n";
+        
+        sortedData.forEach((entry, index) => {
+            tableOut += `| ${index + 1} | ${entry.word} | ${entry.reductionPercentage.toFixed(2)}% | ${entry.averagePossibleWordsCount.toFixed(2)} |\n`;
+        });
+        
+        // Save table to file
+        fs.writeFileSync(outputTablePath, tableOut);
+        console.log(`Table saved to ${outputTablePath}`);
+    } catch (error) {
+        console.error(`Error generating table: ${error.message}`);
+    }
+}
+
+
+
+// convertGetEveryPossibleWordleGuessWithEveryStartingWordAndEveryTargetWordDataToTable()
+
+
 
 export {getEveryPossibleWordleGuessWithAStartingWordAndEveryTargetWord, getHowManyWordsArePossibleGuessesWithAStartingWordAndATargetWord}
