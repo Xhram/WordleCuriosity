@@ -184,27 +184,79 @@ You can view the full ranked lists in the generated JSON and table files in the 
 - [`best_starting_wordle_words_by_pop_score.json`](./analysis/stats/best_starting_wordle_words_by_pop_score.json)
 
 
+## Next Steps
 
+Instead of endlessly analyzing stats to find the best starting word, I decided to use the Monte Carlo method. The Monte Carlo method involves simulating a process many times to gather statistical insights. My first step was to define what makes a starting word "the best." Here's how I defined it:
 
+A "best" starting word is one that, on average, eliminates the most possible options for the next word. To achieve this, I wrote functions that take a word list, a starting word, and a target word, then apply logic to filter out words that cannot be valid guesses. For example, if the target word is `stone` and you start with `slick`, the "S" would be green, eliminating every word in the list that doesn't start with "S." Combined with rules for filtering out words containing gray letters and handling possible positions for yellow letters, this process calculates what I call the `averagePossibleWordsCount`.
 
+---
 
+## Computational Costs
 
+Let's break down the computational cost of this approach:
 
+1. **Outer Loop**: Loop through every word in the word list (14,855 words) as the starting word.
+    - **Cost**: 14,855 iterations.
+2. **Inner Loop**: For each starting word, loop through every word in the word list as the target word.
+    - **Cost**: \(14,855 \times 14,855\).
+3. **Letter Calculations**: Perform calculations for each letter in the word (5 letters per word).
+    - **Cost**: \((14,855^2) + (3 \times 5)\).
+4. **Filtering**: Filter the word list to find possible second-guess words.
+    - **Cost**: \(((14,855^2) + (3 \times 5)) \times 14,855\).
+5. **Additional Letter Loops**: Loop through each letter approximately twice.
+    - **Cost**: \(((14,855^2) + (3 \times 5)) \times 14,855 \times (2 \times 5)\).
 
+### Total Calculations:
+The total number of calculations is approximately:
+\[
+32,780,682,992,000 \text{ calculations}
+\]
 
+Given the sheer scale of this computation, I implemented multithreading to speed up the process.
 
+---
 
+## Results
 
+The `Reduction %` is calculated as:
+\[
+\text{Reduction %} = 100 - \left(\frac{\text{averagePossibleWordsCount}}{\text{wordList.length}} \times 100\right)
+\]
 
+Here are the top results:
 
+| Rank | Word  | Reduction % | Average Possible Words Count |
+| :--: | :----: | :---------: | :--------------------------: |
+|  1   | stoae  |   98.77%   |           182.47            |
+|  2   | seria  |   98.65%   |           200.17            |
+|  3   | soare  |   98.55%   |           214.70            |
+|  4   | serai  |   98.51%   |           221.47            |
+|  5   | neosa  |   98.46%   |           229.47            |
+|  6   | psoae  |   98.41%   |           235.78            |
+|  7   | raise  |   98.38%   |           240.36            |
+|  8   | toeas  |   98.38%   |           241.01            |
+|  9   | morae  |   98.35%   |           245.20            |
+| 10   | porae  |   98.35%   |           245.48            |
+| 11   | strae  |   98.33%   |           247.36            |
+| 12   | saine  |   98.31%   |           251.60            |
+| 13   | reais  |   98.30%   |           252.21            |
+| 14   | potae  |   98.28%   |           255.23            |
+| 15   | stoai  |   98.26%   |           258.93            |
+| 16   | ursae  |   98.25%   |           259.91            |
+| 17   | naieo  |   98.25%   |           260.46            |
+| 18   | ioras  |   98.21%   |           265.26            |
+| 19   | sepia  |   98.21%   |           265.56            |
+| 20   | lares  |   98.21%   |           266.55            |
+| 21   | roate  |   98.20%   |           268.01            |
+| 22   | noias  |   98.18%   |           271.05            |
+| 23   | togae  |   98.17%   |           271.44            |
+| 24   | aeros  |   98.16%   |           272.70            |
+| 25   | seral  |   98.16%   |           274.05            |
 
+---
 
-
-
-
-
-
-
+This analysis demonstrates the effectiveness of the Monte Carlo method in identifying starting words that significantly reduce the number of possible target words. By leveraging multithreading and optimized filtering logic, I was able to compute these results efficiently despite the high computational cost.
 
 
 
