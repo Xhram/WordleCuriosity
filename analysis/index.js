@@ -1,7 +1,9 @@
 import fs from 'fs';
 import { Worker, isMainThread, parentPort } from 'worker_threads';
 import seedrandom from 'seedrandom';
-
+import * as readline from 'node:readline';
+import cliProgress from 'cli-progress';
+import colors from 'colors';
 
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
 
@@ -418,6 +420,12 @@ function randomWordListShuffle(wordList, seed) {
 }
 
 
+function clearConsole() {
+    process.stdout.write('\x1Bc');
+    readline.cursorTo(process.stdout, 0, 0);
+    readline.clearScreenDown(process.stdout);
+}
+
 function simulateEveryWordleGameWithAStartWordMultithreaded(wordList, startingWord, numThreads = 4) {
     const totalWords = wordList.length;
     const allResults = {};
@@ -584,6 +592,10 @@ function getEveryPossibleWordleGuessWithAStartingWordAndEveryTargetWord(wordList
             console.clear();
             console.log(`Progress: ${((index / wordList.length) * 100).toFixed(2)}% (${index}/${wordList.length})`);
         }
+        if (options.progressCallback) {
+            let progress = (results.games.length / wordList.length) * 100;
+            options.progressCallback(progress, startingWord);
+        }
     }
     results.averagePossibleWordsCount = results.totalPossibleWordsCount / wordList.length;
     if (save) {
@@ -607,6 +619,9 @@ function getEveryPossibleWordleGuessWithEveryStartingWordAndEveryTargetWord(word
 
 
 function getEveryPossibleWordleGuessWithEveryStartingWordAndEveryTargetWordMultithreaded(wordList, numThreads = 4, saveThreshold = 50) {
+    clearConsole(); // Initial clear
+    setInterval(clearConsole, 5000); // Clear the terminal every 5 seconds
+
     let shuffledList = randomWordListShuffle(wordList, 77);
     const totalStartingWords = shuffledList.length;
     const chunkSize = Math.ceil(totalStartingWords / numThreads);
@@ -620,17 +635,48 @@ function getEveryPossibleWordleGuessWithEveryStartingWordAndEveryTargetWordMulti
     let resultsCounter = 0;
     const startTime = Date.now();
 
+    const multiBar = new cliProgress.MultiBar({
+        clearOnComplete: true,
+        hideCursor: true,
+        format: colors.cyan('{task}') + ' | [' + colors.blue('{bar}') + '] | ' + colors.green('{percentageFormatted}%') + ' | ' + colors.magenta('{word}')
+    }, cliProgress.Presets.legacy);
+
+    const overallBar = multiBar.create(totalStartingWords, 0, { 
+        task: colors.bold('Overall  '), 
+        word: `0/${totalStartingWords}`,
+        percentageFormatted: '00' // Initial percentage with leading zero
+    });
+
+    let threadBars = chunks.map((_, idx) => {
+        return multiBar.create(100, 0, { 
+            task: colors.bold(`Thread ${String(idx + 1).padStart(2, '0')}`), 
+            word: colors.magenta('N/A'),
+            percentageFormatted: '00' // Initial percentage with leading zero
+        });
+    });
+
+    // Update the percentage formatting logic in the progress bar updates
     return new Promise((resolve, reject) => {
-        for (let chunk of chunks) {
+        for (let [i, chunk] of chunks.entries()) {
             const worker = new Worker('./analysis/workerv2.js', { workerData: null });
             worker.on('message', (msg) => {
+                if (msg.progress !== undefined) {
+                    const percentage = Math.floor(msg.progress);
+                    const formattedPercentage = percentage < 10 ? `0${percentage}` : `${percentage}`;
+                    threadBars[i].update(percentage, { word: msg.lastWord || 'N/A', percentageFormatted: formattedPercentage });
+                    const overallPercentage = Math.floor((allResults.length / totalStartingWords) * 100);
+                    const formattedOverallPercentage = overallPercentage < 10 ? `0${overallPercentage}` : `${overallPercentage}`;
+                    overallBar.update(allResults.length, { word: `${allResults.length}/${totalStartingWords}`, percentageFormatted: formattedOverallPercentage });
+                }
                 if (msg.results) {
+                    const overallPercentage = Math.floor((allResults.length / totalStartingWords) * 100);
+                    const formattedOverallPercentage = overallPercentage < 10 ? `0${overallPercentage}` : `${overallPercentage}`;
+                    overallBar.update(allResults.length, { word: `${allResults.length}/${totalStartingWords}`, percentageFormatted: formattedOverallPercentage });
                     allResults.push(...msg.results);
                     resultsCounter += msg.results.length;
-                    const elapsed = (Date.now() - startTime) / 1000;
-                    const progress = (allResults.length / totalStartingWords * 100).toFixed(2);
-                    console.clear();
-                    console.log(`Progress: ${progress}% (${allResults.length}/${totalStartingWords}) | Elapsed: ${elapsed.toFixed(1)}s`);
+
+                    // Log overall progress to the console
+                    console.log(`Overall Progress: ${allResults.length}/${totalStartingWords} (${formattedOverallPercentage}%)`);
 
                     if (resultsCounter >= saveThreshold) {
                         resultsCounter = 0;
@@ -643,6 +689,7 @@ function getEveryPossibleWordleGuessWithEveryStartingWordAndEveryTargetWordMulti
                 if (msg.done) {
                     completedWorkers++;
                     if (completedWorkers === chunks.length) {
+                        multiBar.stop();
                         saveAnalysisResults(
                             `./analysis/sims_results/raw (.json)/every_possible_wordle_guess_with_every_starting_word_and_target_word_mt.json`,
                             allResults
@@ -656,7 +703,7 @@ function getEveryPossibleWordleGuessWithEveryStartingWordAndEveryTargetWordMulti
         }
     });
 }
-if (isMainThread && false) {
+if (isMainThread) {
     console.log("Starting analysis...");
     getEveryPossibleWordleGuessWithEveryStartingWordAndEveryTargetWordMultithreaded(wordList, 26)
         .catch(err => {
