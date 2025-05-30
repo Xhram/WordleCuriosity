@@ -215,6 +215,7 @@ $$32,780,682,992,000 \text{ calculations}$$
 Given the sheer scale of this computation, I implemented multithreading to speed up the process.
 
 *Note: This process took approximately 4 hours of computing on my i7 14th Gen CPU utilizing all 28 threads.*
+
 ---
 
 ## Results
