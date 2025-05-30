@@ -2,11 +2,11 @@
 *By: Xhram* <br>
 *I made this similar to a blog post*
 
-The best starting word for Wordle is **AEROS**.<br>
+The best starting word for Wordle is **STOAE**.<br>
 
-![Pares](./assets/Aeros.png)
+![Stoae](./assets/Stoae.png)
 
-# Why is Aeros the best starting word?
+# Why is Stoae the best starting word?
 
 ## Most common letter:
 This started by asking what is the most common letter in Wordle. So I extracted the [word list from Wordle](./words.json), then created a [Node.js script](./analysis/index.js) with a function `getMostCommonLetters(wordList)`. This left me with two files: [`most_common_letters.json`](./analysis/stats/most_common_letters.json) and [`sorted_most_common_letters.json`](./analysis/stats/sorted_most_common_letters.json). I simplified the results into a table at [`sorted_most_common_letters_table.md`](./analysis/stats/sorted_most_common_letters_table.md).
@@ -199,19 +199,17 @@ Let's break down the computational cost of this approach:
 1. **Outer Loop**: Loop through every word in the word list (14,855 words) as the starting word.
     - **Cost**: 14,855 iterations.
 2. **Inner Loop**: For each starting word, loop through every word in the word list as the target word.
-    - **Cost**: \(14,855 \times 14,855\).
+    - **Cost**: $14,855 \times 14,855$.
 3. **Letter Calculations**: Perform calculations for each letter in the word (5 letters per word).
-    - **Cost**: \((14,855^2) + (3 \times 5)\).
+    - **Cost**: $(14,855^2) + (3 \times 5)$.
 4. **Filtering**: Filter the word list to find possible second-guess words.
-    - **Cost**: \(((14,855^2) + (3 \times 5)) \times 14,855\).
+    - **Cost**: $((14,855^2) + (3 \times 5)) \times 14,855$.
 5. **Additional Letter Loops**: Loop through each letter approximately twice.
-    - **Cost**: \(((14,855^2) + (3 \times 5)) \times 14,855 \times (2 \times 5)\).
+    - **Cost**: $((14,855^2) + (3 \times 5)) \times 14,855 \times (2 \times 5)$.
 
 ### Total Calculations:
 The total number of calculations is approximately:
-\[
-32,780,682,992,000 \text{ calculations}
-\]
+$$32,780,682,992,000 \text{ calculations}$$
 
 Given the sheer scale of this computation, I implemented multithreading to speed up the process.
 
@@ -220,14 +218,14 @@ Given the sheer scale of this computation, I implemented multithreading to speed
 ## Results
 
 The `Reduction %` is calculated as:
-\[
-\text{Reduction %} = 100 - \left(\frac{\text{averagePossibleWordsCount}}{\text{wordList.length}} \times 100\right)
-\]
+$$
+Reduction\% = 100 - \left(\frac{\text{averagePossibleWordsCount}}{\text{wordList.length}} \times 100\right)
+$$
 
 Here are the top results:
 
 | Rank | Word  | Reduction % | Average Possible Words Count |
-| :--: | :----: | :---------: | :--------------------------: |
+| :--: | :----: | :--------: | :-------------------------: |
 |  1   | stoae  |   98.77%   |           182.47            |
 |  2   | seria  |   98.65%   |           200.17            |
 |  3   | soare  |   98.55%   |           214.70            |
@@ -254,9 +252,7 @@ Here are the top results:
 | 24   | aeros  |   98.16%   |           272.70            |
 | 25   | seral  |   98.16%   |           274.05            |
 
----
 
-This analysis demonstrates the effectiveness of the Monte Carlo method in identifying starting words that significantly reduce the number of possible target words. By leveraging multithreading and optimized filtering logic, I was able to compute these results efficiently despite the high computational cost.
 
 
 
