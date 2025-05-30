@@ -218,9 +218,9 @@ Given the sheer scale of this computation, I implemented multithreading to speed
 ## Results
 
 The `Reduction %` is calculated as:
-$
-Reduction\% = 100 - \left(\frac{\text{averagePossibleWordsCount}}{\text{wordList.length}} \times 100\right)
-$
+```
+Reduction % = 100 - (averagePossibleWordsCount / wordList.length * 100)
+```
 
 Here are the top results:
 
