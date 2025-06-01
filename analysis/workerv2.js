@@ -4,7 +4,7 @@ import { getEveryPossibleWordleGuessWithAStartingWordAndEveryTargetWord } from '
 parentPort.on('message', (msg) => {
     const { chunk, globalWordList } = msg;
     let results = [];
-    let sendSize = 3;
+    let sendSize = 1;
 
     for (let startingWord of chunk) {
 

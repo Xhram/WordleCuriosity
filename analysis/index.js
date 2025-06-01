@@ -507,44 +507,42 @@ function simulateEveryWordleGameWithAStartWordMultithreaded(wordList, startingWo
 function getHowManyWordsArePossibleGuessesWithAStartingWordAndATargetWord(wordList, startingWord, targetWord) {
     
     let correctLetters = Array(5).fill("");
+    let incorrectLetters = new Set();
+    let wronglyPositionedLetters = Array(5).fill("");
     for( let i = 0; i < startingWord.length; i++) {
         if (startingWord[i] === targetWord[i]) {
             correctLetters[i] = startingWord[i];
         }
-    }
-    let incorrectLetters = new Set();
-    for (let i = 0; i < startingWord.length; i++) {
         if (!targetWord.includes(startingWord[i])) {
             incorrectLetters.add(startingWord[i]);
         }
-    }
-    incorrectLetters = Array.from(incorrectLetters);
-
-    let wronglyPositionedLetters = Array(5).fill("");
-    for( let i = 0; i < startingWord.length; i++) {
         if (startingWord[i] != targetWord[i] && targetWord.includes(startingWord[i])) {
             wronglyPositionedLetters[i] = startingWord[i];
         }
     }
+    incorrectLetters = Array.from(incorrectLetters);
 
     let possibleWords = wordList.filter(word => {
         if (word === targetWord) {
             return true;
         }
-        let moddedWord = word;
+        let moddedWord = word.split('');
         for (let i = 0; i < 5; i++) {
             if (correctLetters[i] && word[i] !== correctLetters[i]) {
                 return false;
             }
-            if(wronglyPositionedLetters[i] && word[i] === wronglyPositionedLetters[i]) {
-                return false;
-            }
-            let indexOfWronglyPositioned = moddedWord.indexOf(wronglyPositionedLetters[i]);
+            if(wronglyPositionedLetters[i] != ""){
+                if(word[i] == wronglyPositionedLetters[i]) {
+                    return false;
+                }
+                let indexOfWronglyPositioned = moddedWord.indexOf(wronglyPositionedLetters[i]);
+                
+                if(indexOfWronglyPositioned == -1) {
+                    return false;
+                } else {
+                    moddedWord[indexOfWronglyPositioned] = ''
+                }
 
-            if(indexOfWronglyPositioned == -1) {
-                return false;
-            } else {
-                moddedWord = moddedWord.slice(0, indexOfWronglyPositioned) + moddedWord.slice(indexOfWronglyPositioned + 1);
             }
         }
 
@@ -559,7 +557,71 @@ function getHowManyWordsArePossibleGuessesWithAStartingWordAndATargetWord(wordLi
     let possibleWordsCount = possibleWords.length;
     return {possibleWordsCount, possibleWords};
 }
-// console.log(getHowManyWordsArePossibleGuessesWithAStartingWordAndATargetWord(["txttx","tttxt"], "xcxcc","txttx"))
+function getHowManyWordsArePossibleGuessesWithAStartingWordAndATargetWordLite(wordList, startingWord, targetWord) {
+    
+    let correctLetters = Array(5).fill("");
+    let incorrectLetters = new Set();
+    let wronglyPositionedLetters = Array(5).fill("");
+    for( let i = 0; i < startingWord.length; i++) {
+        if (startingWord[i] === targetWord[i]) {
+            correctLetters[i] = startingWord[i];
+        }
+        if (!targetWord.includes(startingWord[i])) {
+            incorrectLetters.add(startingWord[i]);
+        }
+        if (startingWord[i] != targetWord[i] && targetWord.includes(startingWord[i])) {
+            wronglyPositionedLetters[i] = startingWord[i];
+        }
+    }
+    incorrectLetters = Array.from(incorrectLetters);
+
+    let possibleWordsCount = 0;
+    wordList.forEach(word => {
+        if (word === targetWord) {
+            possibleWordsCount++;
+            return;
+        }
+        let moddedWord = word.split('');
+        for (let i = 0; i < 5; i++) {
+            if (correctLetters[i] && word[i] !== correctLetters[i]) {
+                return;
+            }
+            if(wronglyPositionedLetters[i] != ""){
+                if(word[i] == wronglyPositionedLetters[i]) {
+                    return;
+                }
+                let indexOfWronglyPositioned = moddedWord.indexOf(wronglyPositionedLetters[i]);
+                
+                if(indexOfWronglyPositioned == -1) {
+                    return;
+                } else {
+                    moddedWord[indexOfWronglyPositioned] = ''
+                }
+
+            }
+        }
+
+        for (let letter of incorrectLetters) {
+            if (word.includes(letter)) {
+                return;
+            }
+        }
+        possibleWordsCount++;
+        return;
+    });
+    return {possibleWordsCount};
+}
+
+// let startingWord = "culpa";
+// let targetWord = "lathi";
+
+// console.log(getHowManyWordsArePossibleGuessesWithAStartingWordAndATargetWord(wordList, startingWord, targetWord).possibleWords.join("\n"))
+// console.log(getHowManyWordsArePossibleGuessesWithAStartingWordAndATargetWord(wordList, startingWord, targetWord).possibleWords.length)
+// console.log(getHowManyWordsArePossibleGuessesWithAStartingWordAndATargetWord(wordList, startingWord, targetWord).possibleWords.indexOf(targetWord))
+
+// let l = randomWordListShuffle(wordList, Math.random() * 1000);
+// console.log(l[0]);
+// console.log(l[1]);
 
 function getEveryPossibleWordleGuessWithAStartingWordAndEveryTargetWord(wordList, startingWord, options = {}) {
     const {
@@ -575,7 +637,7 @@ function getEveryPossibleWordleGuessWithAStartingWordAndEveryTargetWord(wordList
         games: []
     };
     for (let word of wordList) {
-        let { possibleWordsCount } = getHowManyWordsArePossibleGuessesWithAStartingWordAndATargetWord(wordList, startingWord, word);
+        let { possibleWordsCount } = getHowManyWordsArePossibleGuessesWithAStartingWordAndATargetWordLite(wordList, startingWord, word);
         results.games.push({
             targetWord: word,
             possibleWordsCount: possibleWordsCount
@@ -716,7 +778,7 @@ function convertGetEveryPossibleWordleGuessWithEveryStartingWordAndEveryTargetWo
 
 
 
-// convertGetEveryPossibleWordleGuessWithEveryStartingWordAndEveryTargetWordDataToTable()
+convertGetEveryPossibleWordleGuessWithEveryStartingWordAndEveryTargetWordDataToTable()
 
 
 

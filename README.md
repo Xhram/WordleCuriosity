@@ -2,11 +2,11 @@
 *By: Xhram* <br>
 *I made this similar to a blog post*
 
-The best starting word for Wordle is **STOAE**.<br>
+The best starting word for Wordle is **LARES**.<br>
 
-![Stoae](./assets/Stoae.png)
+![Lares](./assets/Lares.png)
 
-# Why is Stoae the best starting word?
+# Why is Lares the best starting word?
 
 ## Most common letter:
 This started by asking what is the most common letter in Wordle. So I extracted the [word list from Wordle](./words.json), then created a [Node.js script](./analysis/index.js) with a function `getMostCommonLetters(wordList)`. This left me with two files: [`most_common_letters.json`](./analysis/stats/most_common_letters.json) and [`sorted_most_common_letters.json`](./analysis/stats/sorted_most_common_letters.json). I simplified the results into a table at [`sorted_most_common_letters_table.md`](./analysis/stats/sorted_most_common_letters_table.md).
@@ -230,31 +230,31 @@ Here are the top results:
 
 | Rank | Word  | Reduction % | Average Possible Words Count |
 | :--: | :----: | :--------: | :-------------------------: |
-|  1   | stoae  |   98.77%   |           182.47            |
-|  2   | seria  |   98.65%   |           200.17            |
-|  3   | soare  |   98.55%   |           214.70            |
-|  4   | serai  |   98.51%   |           221.47            |
-|  5   | neosa  |   98.46%   |           229.47            |
-|  6   | psoae  |   98.41%   |           235.78            |
-|  7   | raise  |   98.38%   |           240.36            |
-|  8   | toeas  |   98.38%   |           241.01            |
-|  9   | morae  |   98.35%   |           245.20            |
-| 10   | porae  |   98.35%   |           245.48            |
-| 11   | strae  |   98.33%   |           247.36            |
-| 12   | saine  |   98.31%   |           251.60            |
-| 13   | reais  |   98.30%   |           252.21            |
-| 14   | potae  |   98.28%   |           255.23            |
-| 15   | stoai  |   98.26%   |           258.93            |
-| 16   | ursae  |   98.25%   |           259.91            |
-| 17   | naieo  |   98.25%   |           260.46            |
-| 18   | ioras  |   98.21%   |           265.26            |
-| 19   | sepia  |   98.21%   |           265.56            |
-| 20   | lares  |   98.21%   |           266.55            |
-| 21   | roate  |   98.20%   |           268.01            |
-| 22   | noias  |   98.18%   |           271.05            |
-| 23   | togae  |   98.17%   |           271.44            |
-| 24   | aeros  |   98.16%   |           272.70            |
-| 25   | seral  |   98.16%   |           274.05            |
+| 1 | lares | 97.70% | 341.47 |
+| 2 | rales | 97.69% | 342.88 |
+| 3 | nares | 97.64% | 351.07 |
+| 4 | ranes | 97.64% | 351.25 |
+| 5 | reais | 97.60% | 356.17 |
+| 6 | soare | 97.60% | 356.24 |
+| 7 | tares | 97.59% | 357.66 |
+| 8 | aeros | 97.56% | 363.08 |
+| 9 | serai | 97.54% | 364.76 |
+| 10 | rates | 97.54% | 365.71 |
+| 11 | seria | 97.53% | 367.23 |
+| 12 | saner | 97.52% | 368.18 |
+| 13 | arles | 97.45% | 378.10 |
+| 14 | sater | 97.45% | 379.29 |
+| 15 | lanes | 97.41% | 384.68 |
+| 16 | raise | 97.39% | 387.54 |
+| 17 | tales | 97.38% | 388.83 |
+| 18 | aloes | 97.37% | 390.31 |
+| 19 | saine | 97.37% | 390.97 |
+| 20 | reals | 97.37% | 391.01 |
+| 21 | laers | 97.37% | 391.26 |
+| 22 | seral | 97.34% | 395.39 |
+| 23 | teras | 97.33% | 396.17 |
+| 24 | lears | 97.33% | 396.24 |
+| 25 | salet | 97.30% | 400.43 |
 
 
 
