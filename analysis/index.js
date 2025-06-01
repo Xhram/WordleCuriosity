@@ -1,11 +1,11 @@
 import fs from 'fs';
 import { Worker, isMainThread, parentPort } from 'worker_threads';
 import seedrandom from 'seedrandom';
-
+import "../solver/solver.js"; // Importing the solver module to ensure it is loaded
 
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
 
-function loadWordList(filePath) {
+function loadJson(filePath) {
     try {
         const data = fs.readFileSync(filePath, 'utf8');
         return JSON.parse(data);
@@ -23,7 +23,7 @@ function saveAnalysisResults(filePath, results) {
     }
 }
 
-let wordList = loadWordList('./words.json');
+let wordList = loadJson('./words.json');
 function generateLetterDictionary(alphabet, defaultValue) {
     let letterDict = {};
     for (let letter of alphabet) {
@@ -612,10 +612,24 @@ function getHowManyWordsArePossibleGuessesWithAStartingWordAndATargetWordLite(wo
     return {possibleWordsCount};
 }
 
-// let startingWord = "culpa";
-// let targetWord = "lathi";
+// let startingWord = "proud";
+// let targetWord = "rouxx";
+// let possibleWords = getHowManyWordsArePossibleGuessesWithAStartingWordAndATargetWord(wordList, startingWord, targetWord).possibleWords;
+// let scores = loadJson(`./analysis/sims_results/raw (.json)/every_possible_wordle_guess_with_every_starting_word_and_target_word_mt.json`);
+// let possibleWordsWithScore = possibleWords.map(word => {
+//     let score = scores.find(s => s.startingWord == word);
+//     return {
+//         word: word,
+//         score: score.averagePossibleWordsCount
+//     };
+// })
+// possibleWordsWithScore.sort((a, b) => {
+//     return a.score - b.score;
+// });
+// console.log(possibleWordsWithScore.map(p => `${p.word} (${p.score})`).join("\n"));
 
-// console.log(getHowManyWordsArePossibleGuessesWithAStartingWordAndATargetWord(wordList, startingWord, targetWord).possibleWords.join("\n"))
+
+// // console.log(getHowManyWordsArePossibleGuessesWithAStartingWordAndATargetWord(wordList, startingWord, targetWord).possibleWords.join("\n"))
 // console.log(getHowManyWordsArePossibleGuessesWithAStartingWordAndATargetWord(wordList, startingWord, targetWord).possibleWords.length)
 // console.log(getHowManyWordsArePossibleGuessesWithAStartingWordAndATargetWord(wordList, startingWord, targetWord).possibleWords.indexOf(targetWord))
 
@@ -744,7 +758,7 @@ function convertGetEveryPossibleWordleGuessWithEveryStartingWordAndEveryTargetWo
     const outputTablePath = './analysis/sims_results/table (.md)/every_possible_wordle_guess_with_every_starting_word_and_target_word_table.md';
     
     try {
-        const data = loadWordList(analysisFilePath);
+        const data = loadJson(analysisFilePath);
         
         if (!Array.isArray(data)) {
             throw new Error("Invalid data format: Expected an array.");
@@ -778,7 +792,7 @@ function convertGetEveryPossibleWordleGuessWithEveryStartingWordAndEveryTargetWo
 
 
 
-convertGetEveryPossibleWordleGuessWithEveryStartingWordAndEveryTargetWordDataToTable()
+// convertGetEveryPossibleWordleGuessWithEveryStartingWordAndEveryTargetWordDataToTable()
 
 
 
