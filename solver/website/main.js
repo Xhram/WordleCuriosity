@@ -42,6 +42,10 @@ function onKeyPress(key) {
 
         }
     } else if (key === 'Enter') {
+        submitNextWord();
+    }
+}
+function submitNextWord() {
         let row = getSelectedRow();
         if (row) {
             let word = getWordFromRow(row);
@@ -54,9 +58,9 @@ function onKeyPress(key) {
                 }
                 
                 selectNextSquare();
+                updateWordList();
             }
         }
-    }
 }
 
 function getSelectedSquare() {
@@ -170,7 +174,7 @@ function updateWordList() {
     }
     let possibleGuesses = findBestWordToGuessInHardMode(wordList, startingWordsScores, getGameState());
     document.querySelector("#possibleWordCount").innerHTML = possibleGuesses.length;
-    document.querySelector("#wordList").innerHTML = possibleGuesses.slice(0,10).map((wordData, index) => `<span style="font-size:${60/(index*0.5 + 1)}px;">${index + 1}. ${wordData.word}</span>`).join('');
+    document.querySelector("#wordList").innerHTML = possibleGuesses.slice(0,10).map((wordData, index) => `<div onclick="setNextWord(\'${wordData.word}\')" class="recommendedWord" style="font-size:${60/(index*0.5 + 1)}px;">${index + 1}. ${wordData.word}</div>`).join('');
 }
 document.addEventListener('DOMContentLoaded', () => {
     updateWordList();
@@ -191,4 +195,22 @@ function clearBoard() {
         selectPreviousSquare();
     }
     updateWordList();
+}
+
+function setNextWord(word) {
+    console.log(`Setting next word: ${word}`);
+    let selectedRow = getSelectedRow();
+    if (selectedRow) {
+        let letterBoxes = selectedRow.querySelectorAll('.guess-letter');
+        for (let i = 0; i < letterBoxes.length; i++) {
+            letterBoxes[i].innerHTML = word[i].toUpperCase();
+            letterBoxes[i].classList.add('filled');
+        }
+        for(let i = 0; i < 5; i++) {
+            selectNextSquare(false);
+
+        }
+        submitNextWord();
+        updateWordList();
+    }
 }

@@ -187,7 +187,7 @@ body {
     align-content: center;
     align-items: center;
 }
-#wordList > span {
+#wordList > div {
     margin: 0px;
 }
 
@@ -222,5 +222,10 @@ body {
 .header > button:active {
     background-color: rgb(0, 98, 196);
     border-color: rgb(0, 98, 196);
+
+}
+.recommendedWord:hover {
+    color: rgb(255, 255, 255);
+    text-decoration: underline;
 
 }
