@@ -1,29 +1,16 @@
-import fs from 'fs';
-import { Worker, isMainThread, parentPort } from 'worker_threads';
-import game from './gameState.js';
-
-
-const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
-
-function loadJson(filePath) {
-    try {
-        const data = fs.readFileSync(filePath, 'utf8');
-        return JSON.parse(data);
-    } catch (error) {
-        console.error(`Error reading file from disk: ${error}`);
-        return [];
+class game {
+    constructor(guessedWords, letterStates){
+        this.guessedWords = guessedWords.filter(word => word != "");
+        this.letterStates = letterStates.filter(word => word != "");
     }
+    // guessedWords = ["lares","nitro"]
+    // letterStates = ["bbybb", "bbbyy"]
+    // letterStates:
+    // g = green
+    // y = yellow
+    // b = black/gray
 }
-function saveAnalysisResults(filePath, results) {
-    try {
-        fs.writeFileSync(filePath, JSON.stringify(results, null, 4));
-        console.log(`Results saved to ${filePath}`);
-    } catch (error) {
-        console.error(`Error writing file to disk: ${error}`);
-    }
-}
-let wordList = loadJson('./words.json');
-let startingWordsScores = loadJson('./analysis/sims_results/raw (.json)/every_possible_wordle_guess_with_every_starting_word_and_target_word_mt.json').sort((a, b) => {return a.averagePossibleWordsCount - b.averagePossibleWordsCount});
+
 
 
 function findAllPossibleGuessesForAGame(gameState, wordList) {
@@ -100,7 +87,10 @@ function findAllPossibleGuessesForAGame(gameState, wordList) {
 
 function findBestWordToGuessInHardMode(wordList, startingWordsScores, gameState) {
     if(gameState.guessedWords.length === 0) {
-        return [{word:startingWordsScores[0].startingWord, score: startingWordsScores[0].averagePossibleWordsCount}];
+        let sortedStartingWords = startingWordsScores.sort((a, b) => {
+            return a.averagePossibleWordsCount - b.averagePossibleWordsCount;
+        }).map(score => {return {word:score.startingWord, score: score.averagePossibleWordsCount}});
+        return sortedStartingWords;
     }
     let possibleGuesses = findAllPossibleGuessesForAGame(gameState, wordList).possibleGuesses;
     // calc letter pop score
@@ -183,12 +173,3 @@ function findBestWordToGuessInHardMode(wordList, startingWordsScores, gameState)
 
     return possibleGuesses 
 }
-
-let possibleGuesses = findBestWordToGuessInHardMode(wordList, startingWordsScores, new game(["lares", "goals", "claps", ""], ["yybbg", "bbgyg", "bggyg", ""]));
-console.log("Possible guesses #:", possibleGuesses.length);
-console.log("Possible guesses:\n");
-console.log("| Word  | Score | Star Score | Pop Score |");
-console.log("| :---: | :--: | :--: | :--: |");
-console.log(possibleGuesses.slice(0,10).map(score => {return `| ${score.word} | ${score.score.toFixed(2)} | ${score.normStar.toFixed(2)} | ${score.normPop.toFixed(2)} |`}).join("\n"))
-
-// while(true){}

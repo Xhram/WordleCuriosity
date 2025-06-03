@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Wordle Solver</title>
+        <link rel="stylesheet" href="./main.css">
+    </head>
+
+    <body>
+        <div class="game-container">
+            <div class="header">
+                <h1>Wordle Solver</h1>
+                <button id="resetGame" onclick="clearBoard()">Reset Game</button>
+            </div> 
+            <div class="game">
+                <div class="guess">
+                    <div class="guess-letter selected">
+                        
+                    </div>
+                    <div class="guess-letter">
+                        
+                    </div>
+                    <div class="guess-letter">
+                        
+                    </div>
+                    <div class="guess-letter">
+                       
+                    </div>
+                    <div class="guess-letter ">
+                        
+                    </div>
+                </div>
+                <div class="guess">
+                    <div class="guess-letter">
+                        
+                    </div>
+                    <div class="guess-letter">
+                        
+                    </div>
+                    <div class="guess-letter">
+                        
+                    </div>
+                    <div class="guess-letter">
+                       
+                    </div>
+                    <div class="guess-letter">
+                        
+                    </div>
+                </div>
+                <div class="guess">
+                    <div class="guess-letter">
+                        
+                    </div>
+                    <div class="guess-letter">
+                        
+                    </div>
+                    <div class="guess-letter">
+                        
+                    </div>
+                    <div class="guess-letter">
+                       
+                    </div>
+                    <div class="guess-letter">
+                        
+                    </div>
+                </div>
+                <div class="guess">
+                    <div class="guess-letter">
+                        
+                    </div>
+                    <div class="guess-letter">
+                        
+                    </div>
+                    <div class="guess-letter">
+                        
+                    </div>
+                    <div class="guess-letter">
+                       
+                    </div>
+                    <div class="guess-letter">
+                        
+                    </div>
+                </div>
+                <div class="guess">
+                    <div class="guess-letter">
+                        
+                    </div>
+                    <div class="guess-letter">
+                        
+                    </div>
+                    <div class="guess-letter">
+                        
+                    </div>
+                    <div class="guess-letter">
+                       
+                    </div>
+                    <div class="guess-letter">
+                        
+                    </div>
+                </div>
+                <div class="guess">
+                    <div class="guess-letter">
+                        
+                    </div>
+                    <div class="guess-letter">
+                        
+                    </div>
+                    <div class="guess-letter">
+                        
+                    </div>
+                    <div class="guess-letter">
+                       
+                    </div>
+                    <div class="guess-letter">
+                        
+                    </div>
+                </div>
+            </div>
+            <div id="wordList-container">
+                <h1>List of Best Words:</h1>
+                <h3>Count (<span id="possibleWordCount">14855</span>)</h3>
+                <div id="wordList"></div>
+            </div>
+        </div>
+
+    </body>
+    <script src="./solver.js"></script>
+    <script src="./main.js"></script>
+
+</html>

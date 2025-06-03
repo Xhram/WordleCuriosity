@@ -1,0 +1,226 @@
+@font-face {
+    font-family: 'SF Pro Text';
+    src: url('./fonts/sf-pro-text_regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Pro Text';
+    src: url('./fonts/sf-pro-text_regular-italic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'SF Pro Text';
+    src: url('./fonts/sf-pro-text_semibold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('./fonts/sf-pro-display_semibold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Pro Icons';
+    src: url('./fonts/sf-pro-icons_regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html {
+    font-family: 'SF Pro Text', sans-serif;
+    font-weight: 600;
+    background-color: rgb(27, 27, 29);
+    color: rgb(229, 229, 234);
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-y: hidden;
+}
+body {
+    display: flex;
+    justify-content: center;
+}
+.game-container {
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid rgb(60, 60, 67); */
+
+    height: 100%;
+    width: 340px;
+}
+.game {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    /* padding-top: 40px; */
+}
+.guess {
+    display: flex;
+    flex-direction: row;
+
+}
+.guess-letter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 62px;
+    height:58px;
+    border: 2px solid rgb(60, 60, 67);
+    font-size: 32px;
+    font-weight: 600;
+    color: rgb(229, 229, 234);
+
+    margin: 3px;
+    padding: 0;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.guess-letter.filled {
+    border: 2px solid rgb(96, 96, 107);
+    animation: pop 0.1s ease-in-out;
+}
+.guess-letter.correct {
+    background-color: rgb(83, 141, 78);
+    border: 2px solid rgb(83, 141, 78);
+    animation: pop_3 0.1s ease-in-out;
+
+}
+.guess-letter.selected {
+
+    /* background-color: rgb(52, 52, 56);
+    border: 2px solid rgb(121, 121, 131); */
+    
+}
+.guess-letter.wrong {
+    background-color: rgb(58, 58, 60);
+    border: 2px solid rgb(58, 58, 60);
+    animation: pop_1 0.1s ease-in-out;
+
+}
+.guess-letter.badposition {
+    background-color: rgb(181, 159, 59);
+    border: 2px solid rgb(181, 159, 59);
+    animation: pop_2 0.1s ease-in-out;
+
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes pop_ {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes pop_1 {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes pop_2 {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes pop_3 {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+#wordList-container > h3 {
+    color: rgb(156, 154, 161);
+    margin-top: 0px;
+}
+#wordList-container  h1{
+    margin-bottom: 0px;
+} 
+#wordList {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    align-items: center;
+}
+#wordList > span {
+    margin: 0px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}
+.header > h1 {
+    font-size: 30px;
+    font-weight: 600;
+    margin: 0;
+    color: rgb(229, 229, 234);
+    margin: 3px;
+}
+.header > button {
+    font-size: 16px;
+    font-weight: 400;
+    font-family: "SF Pro Text", sans-serif;
+    background-color: rgb(229, 229, 234);
+    border: 1px solid rgb(0, 113, 227);
+    border-radius: 100px;
+    color: rgb(0, 113, 227);
+}
+.header > button:hover {
+
+    background-color: rgb(0, 113, 227);
+    color: rgb(229, 229, 234);
+}
+.header > button:active {
+    background-color: rgb(0, 98, 196);
+    border-color: rgb(0, 98, 196);
+
+}
