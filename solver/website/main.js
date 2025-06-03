@@ -58,6 +58,19 @@ function submitNextWord() {
                 }
                 
                 selectNextSquare();
+                let state = getGameState();
+                if(state.guessedWords.length >= 2) {
+                    let letterStates = state.letterStates[state.letterStates.length - 2];
+                    for (let i = 0; i < letterStates.length; i++) {
+                        let letterBox = row.querySelector(`.guess-letter:nth-child(${i + 1})`);
+                        if (letterStates[i] === 'g') {
+                            letterBox.classList.remove('wrong', 'badposition');
+                            letterBox.classList.add('correct');
+                        }
+                    }
+
+                }
+
                 updateWordList();
             }
         }
