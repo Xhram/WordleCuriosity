@@ -60,15 +60,29 @@ function submitNextWord() {
                 selectNextSquare();
                 let state = getGameState();
                 if(state.guessedWords.length >= 2) {
+                    let wrongPositionLetters = [];
                     let letterStates = state.letterStates[state.letterStates.length - 2];
+                    let lettersOfGuess = state.guessedWords[state.guessedWords.length - 2].split('');
                     for (let i = 0; i < letterStates.length; i++) {
                         let letterBox = row.querySelector(`.guess-letter:nth-child(${i + 1})`);
                         if (letterStates[i] === 'g') {
                             letterBox.classList.remove('wrong', 'badposition');
                             letterBox.classList.add('correct');
+                        } else if (letterStates[i] === 'y') {
+                            wrongPositionLetters.push(lettersOfGuess[i].toLowerCase());
                         }
-                    }
 
+                    }
+                    wrongPositionLetters = wrongPositionLetters.filter((letter, index, self) => self.indexOf(letter) === self.lastIndexOf(letter));
+
+                    for (let i = 0; i < letterStates.length; i++) {
+                        let letterBox = row.querySelector(`.guess-letter:nth-child(${i + 1})`);
+                        if( wrongPositionLetters.includes(letterBox.innerHTML.toLowerCase()) && !letterBox.classList.contains('correct')) {
+                            letterBox.classList.remove('wrong');
+                            letterBox.classList.add('badposition');
+                        }
+
+                    }
                 }
 
                 updateWordList();
