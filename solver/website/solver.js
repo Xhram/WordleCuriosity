@@ -47,7 +47,17 @@ function findAllPossibleGuessesForAGame(gameState, wordList) {
         }
         wronglyPositionedLettersPerGuess.push(wronglyPositionedLetters);
     }
+    //filter incorrect letters from know to be in the word
+    for(let guessedWordIndex in gameState.guessedWords) {
+        let guessedWord = gameState.guessedWords[guessedWordIndex];
+        let letterStates = gameState.letterStates[guessedWordIndex];
 
+        for(let i = 0; i < 5; i++) {
+            if(letterStates[i] != "b" && incorrectLetters.has(guessedWord[i])) {
+                incorrectLetters.delete(guessedWord[i]);
+            }
+        }
+    }
 
     let possibleGuesses = wordList.filter(word => {
         for(let i = 0; i < 5; i++) {

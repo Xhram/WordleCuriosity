@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { Worker, isMainThread, parentPort } from 'worker_threads';
 import seedrandom from 'seedrandom';
-import "../solver/solver.js"; // Importing the solver module to ensure it is loaded
+import "../solver/baseCode/solver.js"; // Importing the solver module to ensure it is loaded
 
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
 
