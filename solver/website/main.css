@@ -49,20 +49,35 @@ body {
     display: flex;
     justify-content: center;
 }
+/* Adjusting the game container to use a grid layout */
 .game-container {
-    display: flex;
-    flex-direction: column;
-    /* border: 1px solid rgb(60, 60, 67); */
-
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr; /* Three columns: left, center, right */
+    gap: 20px; /* Add some spacing between columns */
     height: 100%;
-    width: 340px;
+    width: 100%;
+    padding-right: 20px;
+}
+
+/* Center the header and game in the middle column */
+.header {
+    grid-column: 2;
+    text-align: center;
 }
 .game {
+    grid-column: 2;
     display: flex;
     flex-direction: column;
-    width: 100%;
+    align-items: center;
+}
 
-    /* padding-top: 40px; */
+/* Place the word list container in the right column */
+#wordList-container {
+    grid-column: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
 }
 .guess {
     display: flex;
@@ -96,10 +111,7 @@ body {
 
 }
 .guess-letter.selected {
-
-    /* background-color: rgb(52, 52, 56);
-    border: 2px solid rgb(121, 121, 131); */
-    
+    border: 2px solid rgb(121, 121, 131);
 }
 .guess-letter.wrong {
     background-color: rgb(58, 58, 60);
@@ -191,13 +203,6 @@ body {
     margin: 0px;
 }
 
-.header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 10px;
-}
 .header > h1 {
     font-size: 30px;
     font-weight: 600;
