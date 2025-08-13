@@ -41,6 +41,7 @@ function onKeyPress(key) {
             selectedSquare.classList.remove('filled');
 
         }
+        updateWordList();
     } else if (key === 'Enter') {
         submitNextWord();
     }
